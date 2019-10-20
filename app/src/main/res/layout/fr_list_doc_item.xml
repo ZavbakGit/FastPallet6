@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:id="@+id/tv_item_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="8dp"
+        android:text="Описание" />
+
+
+    <TextView
+        android:id="@+id/tv_info_doc_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_info"
+        android:layout_margin="8dp"
+        android:text="Лево"
+        />
+
+    <TextView
+        android:id="@+id/tv_info_doc_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_info"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:text="Право" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_info_doc_right"
+        android:background="@android:color/darker_gray" />
+
+
+</RelativeLayout>
