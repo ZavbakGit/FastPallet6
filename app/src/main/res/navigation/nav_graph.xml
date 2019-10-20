@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/documentsFragment"
-        android:name="fun.gladkikh.app.fastpallet6.ui.fragment.DocumentsFragment"
+        android:name="fun.gladkikh.app.fastpallet6.ui.fragment.documents.DocumentsFragment"
         android:label="DocumentsFragment" />
 </navigation>

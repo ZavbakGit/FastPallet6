@@ -1,4 +1,4 @@
-package `fun`.gladkikh.app.fastpallet6.ui.fragment
+package `fun`.gladkikh.app.fastpallet6.ui.fragment.documents
 
 import `fun`.gladkikh.app.fastpallet6.domain.entity.ItemDocument
 

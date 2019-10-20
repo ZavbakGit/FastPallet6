@@ -1,4 +1,4 @@
-package `fun`.gladkikh.app.fastpallet6.ui.fragment
+package `fun`.gladkikh.app.fastpallet6.ui.fragment.documents
 
 import `fun`.gladkikh.app.fastpallet6.R
 import `fun`.gladkikh.app.fastpallet6.domain.entity.ItemDocument
@@ -7,6 +7,7 @@ import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
 import android.content.Context
 import android.view.View
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.documents_frag.*
@@ -21,7 +22,8 @@ class DocumentsFragment :BaseFragment(){
 
     override fun initSubscription() {
         super.initSubscription()
-        adapter = Adapter(activity as Context)
+        adapter =
+            Adapter(activity as Context)
         listView.adapter = adapter
 
         viewModel.getViewSate().observe(viewLifecycleOwner, Observer {
@@ -29,7 +31,17 @@ class DocumentsFragment :BaseFragment(){
         })
 
         tvMenu.setOnClickListener {
-            viewModel.saveTestData()
+            showMenu()
+        }
+    }
+
+    private fun showMenu() {
+        PopupMenu(mainActivity, tvMenu).run {
+            inflate(R.menu.documents_menu)
+            setOnMenuItemClickListener { menuItem ->
+               return@setOnMenuItemClickListener true
+            }
+            show()
         }
     }
 

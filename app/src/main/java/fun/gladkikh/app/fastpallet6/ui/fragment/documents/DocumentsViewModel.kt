@@ -1,4 +1,4 @@
-package `fun`.gladkikh.app.fastpallet6.ui.fragment
+package `fun`.gladkikh.app.fastpallet6.ui.fragment.documents
 
 import `fun`.gladkikh.app.fastpallet6.domain.entity.ItemDocument
 import `fun`.gladkikh.app.fastpallet6.domain.usecase.testdata.AddTestDataUseCase
@@ -14,9 +14,10 @@ class DocumentsViewModel(private val documentsRepository: DocumentsRepository,
     private val documentsLiveData = documentsRepository.getDocumentsLiveData()
 
     private val documentsObserver = Observer<List<ItemDocument>> {
-        documentsViewState.value = DocumentsViewState(
-            list = it
-        )
+        documentsViewState.value =
+            DocumentsViewState(
+                list = it
+            )
     }
 
     fun getViewSate(): LiveData<DocumentsViewState> = documentsViewState
@@ -28,7 +29,8 @@ class DocumentsViewModel(private val documentsRepository: DocumentsRepository,
 
 
     init {
-        documentsViewState.value = DocumentsViewState()
+        documentsViewState.value =
+            DocumentsViewState()
         documentsLiveData.observeForever(documentsObserver)
     }
 

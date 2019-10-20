@@ -6,7 +6,7 @@ import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
 import `fun`.gladkikh.app.fastpallet6.domain.usecase.testdata.AddTestDataUseCase
 import `fun`.gladkikh.app.fastpallet6.repository.CreatePalletRepositoryUpdate
 import `fun`.gladkikh.app.fastpallet6.repository.DocumentsRepository
-import `fun`.gladkikh.app.fastpallet6.ui.fragment.DocumentsViewModel
+import `fun`.gladkikh.app.fastpallet6.ui.fragment.documents.DocumentsViewModel
 import android.content.Context
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
@@ -23,7 +23,12 @@ object DependencyModule {
         single { CreatePalletRepositoryUpdate(get()) }
         single { DocumentsRepository(get()) }
         single { AddTestDataUseCase(get()) }
-        viewModel { DocumentsViewModel(get(),get()) }
+        viewModel {
+            DocumentsViewModel(
+                get(),
+                get()
+            )
+        }
     }
 
     private fun getDataBase(context: Context): AppDatabase {
