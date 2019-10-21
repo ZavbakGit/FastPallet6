@@ -1,6 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.documents
 
-import `fun`.gladkikh.app.fastpallet6.domain.entity.ItemDocument
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.DocumentsItem
 import `fun`.gladkikh.app.fastpallet6.domain.usecase.testdata.AddTestDataUseCase
 import `fun`.gladkikh.app.fastpallet6.repository.DocumentsRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
@@ -10,28 +10,28 @@ import androidx.lifecycle.Observer
 
 class DocumentsViewModel(private val documentsRepository: DocumentsRepository,
                          private val addTestDataUseCase: AddTestDataUseCase) : BaseViewModel() {
-    private val documentsViewState = MutableLiveData<DocumentsViewState>()
-    private val documentsLiveData = documentsRepository.getDocumentsLiveData()
+    private val viewStateLiveData = MutableLiveData<DocumentsViewState>()
+    private val repositoryLiveData = documentsRepository.getDocumentsLiveData()
 
-    private val documentsObserver = Observer<List<ItemDocument>> {
-        documentsViewState.value =
+    private val documentsObserver = Observer<List<DocumentsItem>> {
+        viewStateLiveData.value =
             DocumentsViewState(
                 list = it
             )
     }
 
-    fun getViewSate(): LiveData<DocumentsViewState> = documentsViewState
+    fun getViewSate(): LiveData<DocumentsViewState> = viewStateLiveData
 
     override fun onCleared() {
         super.onCleared()
-        documentsLiveData.removeObserver(documentsObserver)
+        repositoryLiveData.removeObserver(documentsObserver)
     }
 
 
     init {
-        documentsViewState.value =
+        viewStateLiveData.value =
             DocumentsViewState()
-        documentsLiveData.observeForever(documentsObserver)
+        repositoryLiveData.observeForever(documentsObserver)
     }
 
     fun saveTestData(){

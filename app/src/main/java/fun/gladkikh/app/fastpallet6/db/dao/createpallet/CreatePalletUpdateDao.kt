@@ -1,4 +1,4 @@
-package `fun`.gladkikh.app.fastpallet6.db.dao
+package `fun`.gladkikh.app.fastpallet6.db.dao.createpallet
 
 import `fun`.gladkikh.app.fastpallet6.db.entity.BoxCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.CreatePalletDb

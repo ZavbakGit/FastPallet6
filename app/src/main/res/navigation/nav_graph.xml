@@ -6,5 +6,21 @@
     <fragment
         android:id="@+id/documentsFragment"
         android:name="fun.gladkikh.app.fastpallet6.ui.fragment.documents.DocumentsFragment"
-        android:label="DocumentsFragment" />
+        android:label="DocumentsFragment" >
+        <action
+            android:id="@+id/action_documentsFragment_to_docCreatePalletFragment"
+            app:destination="@id/docCreatePalletFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/docCreatePalletFragment"
+        android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc.DocCreatePalletFragment"
+        android:label="DocCreatePalletFragment" >
+        <action
+            android:id="@+id/action_docCreatePalletFragment_to_productCreatePalletFragment"
+            app:destination="@id/productCreatePalletFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productCreatePalletFragment"
+        android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletFragment"
+        android:label="ProductCreatePalletFragment" />
 </navigation>

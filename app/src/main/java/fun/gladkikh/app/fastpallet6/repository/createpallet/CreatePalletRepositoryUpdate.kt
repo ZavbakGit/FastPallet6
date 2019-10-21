@@ -1,6 +1,6 @@
-package `fun`.gladkikh.app.fastpallet6.repository
+package `fun`.gladkikh.app.fastpallet6.repository.createpallet
 
-import `fun`.gladkikh.app.fastpallet6.db.dao.CreatePalletUpdateDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
 import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Pallet

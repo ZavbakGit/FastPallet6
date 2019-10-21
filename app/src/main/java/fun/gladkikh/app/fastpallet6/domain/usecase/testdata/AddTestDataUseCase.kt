@@ -3,13 +3,16 @@ package `fun`.gladkikh.app.fastpallet6.domain.usecase.testdata
 import `fun`.gladkikh.app.fastpallet6.common.toSimpleDate
 import `fun`.gladkikh.app.fastpallet6.domain.entity.*
 
-import `fun`.gladkikh.app.fastpallet6.repository.CreatePalletRepositoryUpdate
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate
 import java.util.*
 
 class AddTestDataUseCase(private val createPalletRepositoryUpdate: CreatePalletRepositoryUpdate) {
 
 
     fun save() {
+
+        var countBox = 0
+
         val listDocuments =
             (0..3).map {
                 CreatePallet(
@@ -25,25 +28,35 @@ class AddTestDataUseCase(private val createPalletRepositoryUpdate: CreatePalletR
                 )
             }
 
-        val t = 1;
+
 
         listDocuments.forEach { doc ->
             createPalletRepositoryUpdate.save(doc)
-            getListProduct(doc.guid).forEach { prod ->
+            val listProduct = getListProduct(doc.guid)
+
+            listProduct.forEach { prod ->
                 createPalletRepositoryUpdate.save(prod)
-                getListPallets(prod.guid).forEach { pall ->
+
+                val listPallet = getListPallets(prod.guid)
+
+                listPallet.forEach { pall ->
                     createPalletRepositoryUpdate.save(pall)
-                    createPalletRepositoryUpdate.saveListBox(getListBox(pall.guid))
+
+                    val listBox = getListBox(pall.guid)
+                    createPalletRepositoryUpdate.saveListBox(listBox)
+                    countBox += listBox.size
                 }
             }
         }
+
+        println(countBox)
     }
 
 
     private fun getListProduct(guidDoc: String): List<Product> {
-        return (0..10).map {
+        return (0..9).map {
             Product(
-                guid = guidDoc + it,
+                guid = guidDoc +"_" + it,
                 guidDoc = guidDoc,
                 nameProduct = "Продукт $it",
                 dataChanged = Date(),
@@ -69,7 +82,7 @@ class AddTestDataUseCase(private val createPalletRepositoryUpdate: CreatePalletR
     private fun getListPallets(guidProduct: String): List<Pallet> {
         return (0..99).map {
             Pallet(
-                guid = guidProduct + it,
+                guid = guidProduct +"_" + it,
                 guidProduct = guidProduct,
                 number = it.toString(),
                 barcode = "65465546546548",
@@ -82,7 +95,7 @@ class AddTestDataUseCase(private val createPalletRepositoryUpdate: CreatePalletR
     private fun getListBox(guidPallet: String): List<Box> {
         return (0..99).map {
             Box(
-                guid = guidPallet + it,
+                guid = guidPallet +"_" + it,
                 guidPallet = guidPallet,
                 barcode = "654656516516516516",
                 countBox = 1,

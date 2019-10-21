@@ -1,8 +1,9 @@
-package `fun`.gladkikh.app.fastpallet6.domain.entity
+package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents
 
+import `fun`.gladkikh.app.fastpallet6.domain.entity.Type
 import java.util.*
 
-data class ItemDocument(
+data class DocumentsItem(
     val guid: String,
     val status: Int?,
     val number: String?,

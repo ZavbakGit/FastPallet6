@@ -1,7 +1,9 @@
 package `fun`.gladkikh.app.fastpallet6.db
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
-import `fun`.gladkikh.app.fastpallet6.db.dao.CreatePalletUpdateDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.DocCreatePalletQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.ProductCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.entity.BoxCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.CreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.PalletCreatePalletDb
@@ -20,4 +22,6 @@ import androidx.room.RoomDatabase
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getCreatePalletUpdateDao(): CreatePalletUpdateDao
     abstract fun getDocumentsQueryDao(): DocumentsQueryDao
+    abstract fun getDocCreatePalletQueryDao(): DocCreatePalletQueryDao
+    abstract fun getProductCreatePalletQueryDao(): ProductCreatePalletQueryDao
 }
