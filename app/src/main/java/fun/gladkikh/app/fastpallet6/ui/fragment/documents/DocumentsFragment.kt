@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.documents_frag.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DocumentsFragment : BaseFragment() {
-    override val layoutRes = R.layout.documents_frag
+    override val layoutRes = R.layout.base_screen
     override val viewModel: DocumentsViewModel by viewModel()
     private lateinit var adapter: Adapter
 
@@ -31,10 +31,10 @@ class DocumentsFragment : BaseFragment() {
             adapter.list = it.list
         })
 
-        tvMenu.setOnClickListener {
-            //viewModel.saveTestData()
-            showMenu()
-        }
+//        tvMenu.setOnClickListener {
+//            //viewModel.saveTestData()
+//            showMenu()
+//        }
 
         listView.setOnItemClickListener { _, _, i, _ ->
             val bundle = Bundle()

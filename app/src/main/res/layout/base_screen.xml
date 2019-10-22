@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-android:layout_height="wrap_content"
-    >
+    android:layout_height="match_parent"
+    android:background="@color/greayBackground">
 
     <TextView
         android:id="@+id/tvInfo"
-        style="@style/HeadItemText"
+        style="@style/HeadText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -40,13 +40,16 @@ android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/tvRight"
         app:layout_constraintTop_toBottomOf="@+id/tvInfo" />
 
-    <View
+    <include
+        layout="@layout/list_include"
         android:layout_margin="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/tv_info_doc_right"
-        android:background="@android:color/darker_gray"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLeft" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
