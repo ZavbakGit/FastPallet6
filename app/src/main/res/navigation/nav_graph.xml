@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_documentsFragment_to_docCreatePalletFragment"
             app:destination="@id/docCreatePalletFragment" />
+        <action
+            android:id="@+id/action_documentsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/docCreatePalletFragment"
@@ -23,4 +26,8 @@
         android:id="@+id/productCreatePalletFragment"
         android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletFragment"
         android:label="ProductCreatePalletFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="fun.gladkikh.app.fastpallet6.ui.fragment.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_margin="8dp"
-        android:text="Описание" />
+        android:text="Описание"
+        style="@style/TextAppearance.MyApp.Headline1"/>
 
 
     <TextView

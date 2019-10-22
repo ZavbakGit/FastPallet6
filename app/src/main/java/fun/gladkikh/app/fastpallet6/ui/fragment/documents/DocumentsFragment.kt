@@ -1,8 +1,8 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.documents
 
 import `fun`.gladkikh.app.fastpallet6.R
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.DocumentsItem
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.DocumentsItem
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc.DocCreatePalletFragment
@@ -32,8 +32,8 @@ class DocumentsFragment : BaseFragment() {
         })
 
         tvMenu.setOnClickListener {
-            viewModel.saveTestData()
-            //showMenu()
+            //viewModel.saveTestData()
+            showMenu()
         }
 
         listView.setOnItemClickListener { _, _, i, _ ->
@@ -46,10 +46,21 @@ class DocumentsFragment : BaseFragment() {
     }
 
     private fun showMenu() {
-        PopupMenu(mainActivity, tvMenu).run {
+        PopupMenu(activity, tvMenu).run {
             inflate(R.menu.documents_menu)
             setOnMenuItemClickListener { menuItem ->
-                return@setOnMenuItemClickListener true
+                when (menuItem.itemId) {
+                    R.id.settings -> {
+                        mainActivity.navController
+                            .navigate(R.id.action_documentsFragment_to_settingsFragment)
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.download -> {
+                        //viewModel.loadDocs()
+                        return@setOnMenuItemClickListener true
+                    }
+                    else -> false
+                }
             }
             show()
         }
