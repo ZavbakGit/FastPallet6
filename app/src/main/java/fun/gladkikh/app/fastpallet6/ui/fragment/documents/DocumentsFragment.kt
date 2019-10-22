@@ -74,14 +74,14 @@ class DocumentsFragment : BaseFragment() {
             holder.tvRight.text = ""
         }
 
-        override fun getLayout(): Int = R.layout.common_item
+        override fun getLayout(): Int = R.layout.base_item
         override fun createViewHolder(view: View): Any =
             ViewHolder(view)
     }
 
     private class ViewHolder(view: View) {
-        var tvInfo: TextView = view.findViewById(R.id.tv_item_info)
-        var tvLeft: TextView = view.findViewById(R.id.tv_info_doc_left)
-        var tvRight: TextView = view.findViewById(R.id.tv_info_doc_right)
+        var tvInfo: TextView = view.findViewById(R.id.tvInfo)
+        var tvLeft: TextView = view.findViewById(R.id.tvLeft)
+        var tvRight: TextView = view.findViewById(R.id.tvRight)
     }
 }

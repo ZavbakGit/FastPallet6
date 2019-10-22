@@ -52,18 +52,18 @@ class DocCreatePalletFragment :BaseFragment(){
         override fun bindView(item: ProductItemCreatePallet, holder: Any) {
             holder as ViewHolder
             holder.tvInfo.text = item.name
-            holder.tvLeft.text = "${item.palCount} / ${item.boxCount} / ${item.boxWeight}"
+            holder.tvLeft.text = "${item.palCount} п ${item.boxCount} м ${item.boxWeight} к"
             holder.tvRight.text = ""
         }
 
-        override fun getLayout(): Int = R.layout.common_item
+        override fun getLayout(): Int = R.layout.base_item
         override fun createViewHolder(view: View): Any =
             ViewHolder(view)
     }
 
     private class ViewHolder(view: View) {
-        var tvInfo: TextView = view.findViewById(R.id.tv_item_info)
-        var tvLeft: TextView = view.findViewById(R.id.tv_info_doc_left)
-        var tvRight: TextView = view.findViewById(R.id.tv_info_doc_right)
+        var tvInfo: TextView = view.findViewById(R.id.tvInfo)
+        var tvLeft: TextView = view.findViewById(R.id.tvLeft)
+        var tvRight: TextView = view.findViewById(R.id.tvRight)
     }
 }
