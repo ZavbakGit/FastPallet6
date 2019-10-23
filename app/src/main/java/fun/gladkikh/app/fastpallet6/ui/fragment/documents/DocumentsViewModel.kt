@@ -2,14 +2,19 @@ package `fun`.gladkikh.app.fastpallet6.ui.fragment.documents
 
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.DocumentsItem
 import `fun`.gladkikh.app.fastpallet6.domain.usecase.testdata.AddTestDataUseCase
+import `fun`.gladkikh.app.fastpallet6.network.ApiFactory
 import `fun`.gladkikh.app.fastpallet6.repository.DocumentsRepository
+import `fun`.gladkikh.app.fastpallet6.repository.SettingsRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 
-class DocumentsViewModel(private val documentsRepository: DocumentsRepository,
-                         private val addTestDataUseCase: AddTestDataUseCase) : BaseViewModel() {
+class DocumentsViewModel(val documentsRepository: DocumentsRepository,
+                         val addTestDataUseCase: AddTestDataUseCase,
+                         val settingsRepository: SettingsRepository,
+                         val apiFactory: ApiFactory
+) : BaseViewModel() {
     private val viewStateLiveData = MutableLiveData<DocumentsViewState>()
     private val repositoryLiveData = documentsRepository.getDocumentsLiveData()
 
@@ -36,6 +41,10 @@ class DocumentsViewModel(private val documentsRepository: DocumentsRepository,
 
     fun saveTestData(){
         addTestDataUseCase.save()
+    }
+
+    fun loadDocs() {
+        loadDocuments()
     }
 
 

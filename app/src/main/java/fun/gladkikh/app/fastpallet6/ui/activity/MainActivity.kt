@@ -17,6 +17,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+
     }
 
     fun showMessage(text: CharSequence) {
@@ -36,6 +38,5 @@ class MainActivity : BaseActivity() {
     fun hideProgress() {
         progressView.visibility = View.GONE
     }
-
 
 }

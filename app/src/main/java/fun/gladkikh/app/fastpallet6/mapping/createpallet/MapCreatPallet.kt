@@ -1,14 +1,14 @@
 package `fun`.gladkikh.app.fastpallet6.mapping.createpallet
 
 
+import `fun`.gladkikh.app.fastpallet6.common.getFloatByParseStr
+import `fun`.gladkikh.app.fastpallet6.common.getIntByParseStr
 import `fun`.gladkikh.app.fastpallet6.db.entity.BoxCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.CreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.PalletCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
-import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Pallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Product
+import `fun`.gladkikh.app.fastpallet6.domain.entity.*
+import `fun`.gladkikh.app.fastpallet6.network.intity.DocResponse
 import java.util.*
 
 fun CreatePalletDb.toObject(): CreatePallet {
@@ -135,5 +135,48 @@ fun Box.toDb(): BoxCreatePalletDb {
         data = this.data?.time,
         countBox = this.countBox,
         barcode = this.barcode
+    )
+}
+
+fun DocResponse.toCreatePallet(): CreatePallet {
+
+    val guidDoc = UUID.randomUUID().toString()
+
+    val listProd = this.listStringsProduct?.map { stringProd ->
+        Product(
+            guid = UUID.randomUUID().toString(),
+            guidDoc = guidDoc,
+            nameProduct = stringProd.nameProduct,
+            isWasLoadedLastTime = true,
+            dataChanged = java.util.Date(),
+            barcode = null,
+            number = stringProd.number,
+            countBox = stringProd.countBox?.getIntByParseStr(),
+            count = stringProd.count?.getFloatByParseStr(),
+            countPallet = null,
+            boxes = null,
+            codeProduct = stringProd.codeProduct,
+            ed = stringProd.ed,
+            edCoff = stringProd.edCoff?.getFloatByParseStr(),
+            guidProduct = stringProd.guidProduct,
+            weightBarcode = stringProd.barcode,
+            weightCoffProduct = stringProd.weightCoffProduct?.getFloatByParseStr(),
+            weightEndProduct = stringProd.weightEndProduct?.getIntByParseStr(),
+            weightStartProduct = stringProd.weightStartProduct?.getIntByParseStr()
+        )
+    } ?: kotlin.collections.listOf()
+
+
+    return CreatePallet(
+        guid = guidDoc,
+        date = this.date,
+        number = this.number,
+        status = Status.getStatusByString(this.status).id,
+        barcode = null,
+        dataChanged = null,
+        description = this.description,
+        guidServer = this.guid,
+        isWasLoadedLastTime = null,
+        listProduct = listProd
     )
 }

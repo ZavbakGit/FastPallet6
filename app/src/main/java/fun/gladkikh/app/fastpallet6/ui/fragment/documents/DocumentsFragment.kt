@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.documents_frag.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DocumentsFragment : BaseFragment() {
-    override val layoutRes = R.layout.documents_frag
+    override val layoutRes = R.layout.base_screen
     override val viewModel: DocumentsViewModel by viewModel()
     private lateinit var adapter: Adapter
 
@@ -45,6 +45,8 @@ class DocumentsFragment : BaseFragment() {
 
     }
 
+
+
     private fun showMenu() {
         PopupMenu(activity, tvMenu).run {
             inflate(R.menu.documents_menu)
@@ -56,7 +58,7 @@ class DocumentsFragment : BaseFragment() {
                         return@setOnMenuItemClickListener true
                     }
                     R.id.download -> {
-                        //viewModel.loadDocs()
+                        viewModel.loadDocs()
                         return@setOnMenuItemClickListener true
                     }
                     else -> false

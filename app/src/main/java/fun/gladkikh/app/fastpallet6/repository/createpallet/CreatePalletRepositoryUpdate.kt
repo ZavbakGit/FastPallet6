@@ -1,14 +1,44 @@
 package `fun`.gladkikh.app.fastpallet6.repository.createpallet
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
-import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Pallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Product
+import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.domain.entity.*
 
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toDb
+import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toObject
 
-class CreatePalletRepositoryUpdate(private val createPalletUpdateDao: CreatePalletUpdateDao) {
+class CreatePalletRepositoryUpdate(val createPalletUpdateDao: CreatePalletUpdateDao) {
+
+    fun getListPalletByGuidProduct(guidProduct:String):List<Pallet>{
+        return createPalletUpdateDao.getListPalletCreatPalletByGuidProduct(guidProduct).map {
+            it.toObject()
+        }
+    }
+
+    fun getListProductCreatPalletByGuidDoc(guidDoc: String): List<Product> {
+        return createPalletUpdateDao.getProductListCreatPalletByGuidDoc(guidDoc).map {
+            it.toObject()
+        }
+    }
+
+    inline fun <reified T> getObjectCreatePalletByGuid(guid: String): Any? {
+        return when (T::class.java) {
+            Box::class.java -> createPalletUpdateDao.getBoxCreatPalletByGuid(guid)?.toObject()
+            Pallet::class.java -> createPalletUpdateDao.getPalletCreatePalletByGuid(guid)?.toObject()
+            Product::class.java -> createPalletUpdateDao.getProductCreatePalletByGuid(guid)?.toObject()
+            CreatePallet::class.java -> createPalletUpdateDao.getCreatePalletByGuid(guid)?.toObject()
+            else -> throw Throwable("Объект не в базе!")
+        }
+    }
+
+    inline fun<reified T> getObjectCreatePalletByGuidServer(guidServer: String): Any? {
+        return when (T::class.java) {
+            Product::class.java -> createPalletUpdateDao.getProductCreatePalletByGuidServer(guidServer)?.toObject() as? T?
+            CreatePallet::class.java -> createPalletUpdateDao.getCreatePalletByGuidServer(guidServer)?.toObject() as? T?
+            else -> throw Throwable("Объект не в базе!")
+        }
+    }
+
 
     fun <T> save(intety: T) {
         when (intety) {

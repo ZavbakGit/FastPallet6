@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="HeadItem">
+    <style name="HeadItemText">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/colorBlack</item>
     </style>
@@ -17,7 +17,12 @@
         <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingRight">4dp</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/backgroundItemText</item>
+        <item name="android:textColor">@color/ColorOrangeText</item>
+    </style>
+
+    <style name="HeadText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/ColorGreenText</item>
     </style>
 
 </resources>
