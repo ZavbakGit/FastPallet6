@@ -6,9 +6,11 @@ import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.DocCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.ProductCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.domain.usecase.testdata.AddTestDataUseCase
+import `fun`.gladkikh.app.fastpallet6.network.ApiFactory
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.DocCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.repository.DocumentsRepository
+import `fun`.gladkikh.app.fastpallet6.repository.SettingsRepository
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.ProductCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc.DocCreatePalletViewModel
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletViewModel
@@ -38,17 +40,24 @@ object DependencyModule {
         //Добавляем  repository
         //****************************************************************************************
         //Documents
-        single { DocumentsRepository(get()) }
+        single { DocumentsRepository(get(), get()) }
 
         //CreatePallet
         single { CreatePalletRepositoryUpdate(get()) }
         single { DocCreatePalletRepository(get()) }
         single { ProductCreatePalletRepository(get()) }
 
+
+        //Настройки
+        single { SettingsRepository(get()) }
+
+        //Сеть
+        single { ApiFactory(get()) }
+
         //Добавляем ViewModel
         //*****************************************************************************************
         //Documents
-        viewModel { DocumentsViewModel(get(), get())}
+        viewModel { DocumentsViewModel(get(), get(), get(), get()) }
 
         //CreatePallet
         viewModel { DocCreatePalletViewModel(get()) }

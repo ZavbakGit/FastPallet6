@@ -1,13 +1,14 @@
 package `fun`.gladkikh.app.fastpallet6.network
 
-import `fun`.gladkikh.app.fastpallet6.App
 import `fun`.gladkikh.app.fastpallet6.Constants
+import `fun`.gladkikh.app.fastpallet6.domain.entity.SettingsPref
 import `fun`.gladkikh.app.fastpallet6.network.util.AutorithationUtil
 import `fun`.gladkikh.app.fastpallet6.network.util.LogJSONInterceptor
 import `fun`.gladkikh.app.fastpallet6.network.util.intity.ReqestModel
 import `fun`.gladkikh.app.fastpallet6.network.util.intity.ReqestObj
 import `fun`.gladkikh.app.fastpallet6.network.util.intity.ResponseModel
 import `fun`.gladkikh.app.fastpallet6.network.util.intity.ResponseObj
+import `fun`.gladkikh.app.fastpallet6.repository.SettingsRepository
 import android.annotation.SuppressLint
 import com.google.gson.GsonBuilder
 import io.reactivex.Single
@@ -26,7 +27,9 @@ import retrofit2.http.POST
 /**
  *The interface which provides methods to get result of webservices
  */
-object ApiFactory {
+class ApiFactory(private val settingsRepository: SettingsRepository) {
+
+
 
     private val gson =
         GsonBuilder()
@@ -61,17 +64,19 @@ object ApiFactory {
         .build()
 
 
-    private val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(App.settingsRepository.settings.host ?: "")
+
+
+    private fun getRetrofit(settingsPref: SettingsPref):Retrofit{
+       return Retrofit.Builder()
+            .baseUrl(settingsPref.host ?: "")
             .client(authClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
 
-    private val api: Api = retrofit.create(Api::class.java)
 
+    private fun getApi(settingsPref: SettingsPref) = getRetrofit(settingsPref).create(Api::class.java)
 
     interface Api {
         @POST("host")
@@ -94,8 +99,9 @@ object ApiFactory {
             strDataIn = gson.toJson(objRequest)
         )
 
+        val settingsPref = settingsRepository.getSettings()
 
-        return Single.just(App.settingsRepository.settings)
+        return Single.just(settingsPref)
             .map {
                 //Проверка на код тсд
                 if (it.code.isNullOrEmpty()) {
@@ -106,11 +112,11 @@ object ApiFactory {
             .map {
                 //Строка авторизации
                 return@map AutorithationUtil.getStringAutorization(
-                    App.settingsRepository.settings.login,
-                    App.settingsRepository.settings.pass
+                    it.login,
+                    it.pass
                 )
             }.flatMap {
-                api.getDataFromServer(
+                getApi(settingsPref).getDataFromServer(
                     auth = it,
                     sendParamJson = requestModel
                 )

@@ -1,43 +1,76 @@
 package `fun`.gladkikh.app.fastpallet6.repository
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.entity.CreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Document
+import `fun`.gladkikh.app.fastpallet6.domain.entity.Product
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.DocumentsItem
+import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toObject
 import `fun`.gladkikh.app.fastpallet6.mapping.documents.toObject
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import java.util.*
 
-class DocumentsRepository(private val documentsQueryDao: DocumentsQueryDao) {
+class DocumentsRepository(
+    private val documentsQueryDao: DocumentsQueryDao,
+    val createPalletRepositoryUpdate: CreatePalletRepositoryUpdate
+) {
     fun getDocumentsLiveData(): LiveData<List<DocumentsItem>> = Transformations.map(
         documentsQueryDao.getDocuments()
     ) { list ->
-       return@map list.map {
+        return@map list.map {
             it.toObject()
         }
     }
 
 
-    fun saveDocument(document: Document) {
-        when (document) {
-            is CreatePallet -> {
-                val createPalletFromDb =
-                    createPalletRepository.getDocByGuidServer(document.guidServer!!)
+    inline fun <reified T : Document> getDocumentByGuid(guid: String): Document {
+        return when (T::class) {
+            CreatePallet::class ->
+                (createPalletRepositoryUpdate
+                    .getObjectCreatePalletByGuid<CreatePallet>(guid) as CreatePalletDb).toObject()
 
-                val doc = createPalletFromDb?.apply { document.mixWithDb(this) } ?: document
-                doc.apply {
-                    this.status = document.status
-                    this.barcode = document.barcode
-                    this.dataChanged = Date()
-                    this.description = document.description
-                    this.isWasLoadedLastTime = true
-                    this.number = document.number
+            else -> throw Throwable("Из базы запросили нейизвестный тип!")
+
+        }
+    }
+
+    fun saveDocument(doсFromServer: Document) {
+        when (doсFromServer) {
+            is CreatePallet -> {
+                val docFromDb =
+                    createPalletRepositoryUpdate
+                        .getObjectCreatePalletByGuidServer<CreatePallet>(doсFromServer.guidServer!!) as? CreatePallet?
+
+
+                val doc = docFromDb ?: doсFromServer
+
+
+                val (listSave, listDell) = mixStringSavaAndDell(doc, doсFromServer)
+
+                //Удаляем ненужные
+                listDell.forEach {
+                    createPalletRepositoryUpdate.delete(it)
                 }
 
-                createPalletRepository.saveDoc(doc)
-                doc.listProduct.forEach {
-                    createPalletRepository.saveProduct(it, document.guid)
+
+                //Миксуем
+                doc.apply {
+                    this.status = doсFromServer.status
+                    this.barcode = doсFromServer.barcode
+                    this.dataChanged = Date()
+                    this.description = doсFromServer.description
+                    this.isWasLoadedLastTime = true
+                    this.number = doсFromServer.number
+                }
+
+                createPalletRepositoryUpdate.save(doc)
+
+                listSave.forEach {
+                    createPalletRepositoryUpdate.save(it)
                 }
 
             }
@@ -47,32 +80,76 @@ class DocumentsRepository(private val documentsQueryDao: DocumentsQueryDao) {
     fun dellDocument(document: Document) {
         when (document) {
             is CreatePallet -> {
-                createPalletRepository.dellDoc(document)
-                //var list =  CreatePalletRepository.getPalletAll()
+                createPalletRepositoryUpdate.delete(document)
             }
         }
+    }
+
+
+    /**
+     * Возвращает два списка первый для сохранения,
+     * второй удалять
+     */
+    private fun mixStringSavaAndDell(
+        doc: CreatePallet,
+        docFromServer: CreatePallet
+    ): Pair<List<Product>, List<Product>> {
+
+        val list = createPalletRepositoryUpdate.getListProductCreatPalletByGuidDoc(doc.guid)
+        val listFromServer = docFromServer.listProduct
+
+        //Если старый пустой, то миксрвать нескем
+        if (list.isEmpty()) {
+            return Pair(listFromServer, listOf())
+        }
+
+        //Загрузим паллеты
+        list.forEach {
+            it.pallets = createPalletRepositoryUpdate.getListPalletByGuidProduct(it.guid)
+        }
+
+
+        val listDell = list.filter { prod ->
+            //Удаляем если нет паллет или не пришел с сервера
+            prod.guidProduct !in listFromServer.map { it.guidProduct } && prod.pallets.isEmpty()
+        }
+
+        val listSave = list.filter { prod ->
+            //Оставляем если есть паллеты или пришел с сервера
+            prod.guidProduct in listFromServer.map { it.guidProduct } || prod.pallets.isNotEmpty()
+        }
+
+        //Поменяем guid
+        val listAdd = listFromServer.map {
+            it.apply {
+                it.guidDoc = doc.guid
+            }
+        }.filter {
+            //Уберем которые уже есть
+            it.guidProduct !in listSave.map { it.guidProduct }
+        }
+
+        return Pair(listSave + listAdd, listDell)
+
     }
 
     private fun CreatePallet.mixWithDb(createPalletFromDb: CreatePallet): CreatePallet {
 
         this.guid = createPalletFromDb.guid
-        var oldProduct = createPalletRepository.getListProductByDoc(this.guid)
+        var oldProduct = createPalletRepositoryUpdate.getListProductCreatPalletByGuidDoc(this.guid)
 
         //Удаляем каскадно все что без паллет
         oldProduct.forEach { prod ->
             prod.apply {
-                pallets = createPalletRepository.getListPalletByProduct(prod.guid)
+                pallets = createPalletRepositoryUpdate.getListPalletByGuidProduct(prod.guid)
             }
             if (prod.pallets.isEmpty()) {
-                createPalletRepository.dellProduct(
-                    product = prod
-                    , guidDoc = this.guid
-                )
+                createPalletRepositoryUpdate.delete(prod)
             }
         }
 
         //Читаем Еще раз
-        oldProduct = createPalletRepository.getListProductByDoc(this.guid)
+        oldProduct = createPalletRepositoryUpdate.getListProductCreatPalletByGuidDoc(this.guid)
 
         //Оставили только те которых нет в старом списке
         val newList =
@@ -87,5 +164,6 @@ class DocumentsRepository(private val documentsQueryDao: DocumentsQueryDao) {
         return createPalletFromDb
 
     }
+
 
 }

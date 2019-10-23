@@ -37,6 +37,9 @@ interface CreatePalletUpdateDao {
 
     @Delete
     fun delete(entity: BoxCreatePalletDb)
+
+    @Query("SELECT * FROM BoxCreatePalletDb WHERE guid = :guid")
+    fun getBoxCreatPalletByGuid(guid:String): BoxCreatePalletDb
     //endregion
 
     //region function for Pallet
@@ -65,6 +68,12 @@ interface CreatePalletUpdateDao {
 
     @Delete
     fun delete(entity: PalletCreatePalletDb)
+
+    @Query("SELECT * FROM PalletCreatePalletDb WHERE guid = :guid")
+    fun getPalletCreatePalletByGuid(guid:String): PalletCreatePalletDb
+
+    @Query("SELECT * FROM PalletCreatePalletDb WHERE guidProduct = :guidProduct")
+    fun getListPalletCreatPalletByGuidProduct(guidProduct:String):List<PalletCreatePalletDb>
     //endregion
 
     //region function for Product
@@ -93,6 +102,17 @@ interface CreatePalletUpdateDao {
 
     @Delete
     fun delete(entity: ProductCreatePalletDb)
+
+    @Query("SELECT * FROM ProductCreatePalletDb WHERE guid = :guid")
+    fun getProductCreatePalletByGuid(guid:String): ProductCreatePalletDb
+
+    @Query("SELECT * FROM ProductCreatePalletDb WHERE guidProduct = :guid")
+    fun getProductCreatePalletByGuidServer(guid:String): ProductCreatePalletDb
+
+    @Query("SELECT * FROM ProductCreatePalletDb WHERE guidDoc = :guidDoc")
+    fun getProductListCreatPalletByGuidDoc(guidDoc:String): List<ProductCreatePalletDb>
+
+
     //endregion
 
     //region function for CreatePallet
@@ -111,7 +131,7 @@ interface CreatePalletUpdateDao {
     }
 
     @Transaction
-    fun insertOrUpdateListCreatPallet(list: List<CreatePalletDb>) {
+    fun insertOrUpdateListCreatePallet(list: List<CreatePalletDb>) {
         list.forEach {
             if (insertIgnore(it) == -1L) {
                 update(it)
@@ -121,6 +141,12 @@ interface CreatePalletUpdateDao {
 
     @Delete
     fun delete(entity: CreatePalletDb)
+
+    @Query("SELECT * FROM CreatePalletDb WHERE guid = :guid")
+    fun getCreatePalletByGuid(guid:String): CreatePalletDb
+
+    @Query("SELECT * FROM CreatePalletDb WHERE guidServer = :guidServer")
+    fun getCreatePalletByGuidServer(guidServer:String): CreatePalletDb
     //endregion
 
 

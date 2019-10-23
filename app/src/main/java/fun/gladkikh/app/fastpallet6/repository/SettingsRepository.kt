@@ -4,11 +4,9 @@ import `fun`.gladkikh.app.fastpallet6.domain.entity.SettingsPref
 import android.content.Context
 import androidx.preference.PreferenceManager
 
-class SettingsRepository {
-    var settings = SettingsPref()
-       private set
+class SettingsRepository(private val context:Context) {
 
-    fun readSettings(context: Context) {
+   fun getSettings():SettingsPref{
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
         val host = "preference_host"
@@ -18,8 +16,7 @@ class SettingsRepository {
         val listTsd = "list_tsd"
 
 
-
-        settings = SettingsPref(
+        return SettingsPref(
             host = sharedPref.getString(host, "http://172.31.255.150/rmmt/hs/api/"),
             code = sharedPref.getString(code, "333"),
             login = sharedPref.getString(login, "Администратор"),

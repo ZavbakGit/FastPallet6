@@ -16,7 +16,7 @@ open class BaseViewModel: ViewModel() {
     protected val command = SingleLiveEvent<Command>()
     fun getCommand(): LiveData<Command> = command
 
-    protected val disposables = CompositeDisposable()
+    val disposables = CompositeDisposable()
     override fun onCleared() {
         super.onCleared()
         disposables.dispose()

@@ -1,14 +1,13 @@
 package `fun`.gladkikh.app.fastpallet6.mapping.createpallet
 
 
+import `fun`.gladkikh.app.fastpallet6.common.getFloatByParseStr
+import `fun`.gladkikh.app.fastpallet6.common.getIntByParseStr
 import `fun`.gladkikh.app.fastpallet6.db.entity.BoxCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.CreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.PalletCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
-import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Pallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Product
+import `fun`.gladkikh.app.fastpallet6.domain.entity.*
 import `fun`.gladkikh.app.fastpallet6.network.intity.DocResponse
 import java.util.*
 
@@ -141,9 +140,12 @@ fun Box.toDb(): BoxCreatePalletDb {
 
 fun DocResponse.toCreatePallet(): CreatePallet {
 
+    val guidDoc = UUID.randomUUID().toString()
+
     val listProd = this.listStringsProduct?.map { stringProd ->
         Product(
-            guid = java.util.UUID.randomUUID().toString(),
+            guid = UUID.randomUUID().toString(),
+            guidDoc = guidDoc,
             nameProduct = stringProd.nameProduct,
             isWasLoadedLastTime = true,
             dataChanged = java.util.Date(),
@@ -166,7 +168,7 @@ fun DocResponse.toCreatePallet(): CreatePallet {
 
 
     return CreatePallet(
-        guid = java.util.UUID.randomUUID().toString(),
+        guid = guidDoc,
         date = this.date,
         number = this.number,
         status = Status.getStatusByString(this.status).id,
@@ -175,7 +177,6 @@ fun DocResponse.toCreatePallet(): CreatePallet {
         description = this.description,
         guidServer = this.guid,
         isWasLoadedLastTime = null,
-        typeFromServer = this.type,
         listProduct = listProd
     )
 }

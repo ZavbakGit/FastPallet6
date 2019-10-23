@@ -7,13 +7,7 @@ import `fun`.gladkikh.app.fastpallet6.network.ApiFactory
 import `fun`.gladkikh.app.fastpallet6.network.intity.GetListDocsRequest
 import `fun`.gladkikh.app.fastpallet6.network.intity.ListDocResponse
 import `fun`.gladkikh.app.fastpallet6.repository.DocumentsRepository
-import `fun`.gladkikh.fastpallet5.domain.entity.Document
-import `fun`.gladkikh.fastpallet5.domain.entity.SettingsPref
-import `fun`.gladkikh.fastpallet5.maping.creatpallet.toDocument
-import `fun`.gladkikh.fastpallet5.network.ApiFactory
-import `fun`.gladkikh.fastpallet5.network.intity.GetListDocsRequest
-import `fun`.gladkikh.fastpallet5.network.intity.ListDocResponse
-import `fun`.gladkikh.fastpallet5.repository.DocumentRepository
+import `fun`.gladkikh.app.fastpallet6.repository.SettingsRepository
 import io.reactivex.Single
 
 /**
@@ -26,16 +20,20 @@ import io.reactivex.Single
  */
 fun getListDocumentsDbFromServer(
     documentRepository: DocumentsRepository,
-    settingPref: SettingsPref
+    settingsRepository: SettingsRepository,
+    apiFactory: ApiFactory
 ): Single<List<Document>> {
-    return Single.just(settingPref)
+
+    val settingsPref = settingsRepository.getSettings()
+
+    return Single.just(settingsPref)
         .map {
             if (it.code.isNullOrEmpty()) {
                 throw Throwable("Не заполнен код ТСД")
             }
-            return@map GetListDocsRequest(codeTSD = settingPref.code!!)
+            return@map GetListDocsRequest(codeTSD = settingsPref.code!!)
         }.flatMap {
-            ApiFactory.request(
+            apiFactory.request(
                 command = "command_get_doc",
                 objRequest = it,
                 classResponse = ListDocResponse::class.java
@@ -49,7 +47,11 @@ fun getListDocumentsDbFromServer(
             }
         }.flatMap {
             //Отправляем подтверждение и проверяем что в 1С применился новый статус
-            confirmLoadDocuments(it)
+            confirmLoadDocuments(
+                listDocuments = it,
+                settingsPref = settingsPref,
+                apiFactory = apiFactory
+            )
         }.doOnSuccess {
             //Записываем
             it.forEach { doc ->

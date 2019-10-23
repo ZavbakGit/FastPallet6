@@ -1,19 +1,20 @@
 package `fun`.gladkikh.app.fastpallet6.domain.usecase.documents
 
-import `fun`.gladkikh.app.fastpallet6.App
-import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Document
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Type
+import `fun`.gladkikh.app.fastpallet6.domain.entity.*
 import `fun`.gladkikh.app.fastpallet6.network.ApiFactory
 import `fun`.gladkikh.app.fastpallet6.network.intity.ConfirmDocumentsLoadRequest
 import `fun`.gladkikh.app.fastpallet6.network.intity.ConfirmResponse
 import `fun`.gladkikh.app.fastpallet6.network.intity.DocConfirm
-
 import io.reactivex.Single
 
 
-fun confirmLoadDocuments(listDocuments: List<Document>): Single<List<Document>> {
+fun confirmLoadDocuments(
+    listDocuments: List<Document>
+    , settingsPref: SettingsPref
+    , apiFactory: ApiFactory
+): Single<List<Document>> {
+
+
     val list = listDocuments.map {
         when (it) {
             is CreatePallet -> {
@@ -23,10 +24,10 @@ fun confirmLoadDocuments(listDocuments: List<Document>): Single<List<Document>> 
     }
 
 
-    return ApiFactory.request(
+    return apiFactory.request(
         command = "command_confirm_doc",
         objRequest = ConfirmDocumentsLoadRequest(
-            App.settingsRepository.settings.code ?: "",
+            settingsPref.code ?: "",
             list = list
         ),
         classResponse = ConfirmResponse::class.java

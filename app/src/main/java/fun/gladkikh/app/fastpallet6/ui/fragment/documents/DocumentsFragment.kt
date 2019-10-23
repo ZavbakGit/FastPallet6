@@ -45,6 +45,8 @@ class DocumentsFragment : BaseFragment() {
 
     }
 
+
+
     private fun showMenu() {
         PopupMenu(activity, tvMenu).run {
             inflate(R.menu.documents_menu)
@@ -56,7 +58,7 @@ class DocumentsFragment : BaseFragment() {
                         return@setOnMenuItemClickListener true
                     }
                     R.id.download -> {
-                        //viewModel.loadDocs()
+                        viewModel.loadDocs()
                         return@setOnMenuItemClickListener true
                     }
                     else -> false

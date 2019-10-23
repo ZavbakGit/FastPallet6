@@ -1,7 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6
 
 import `fun`.gladkikh.app.fastpallet6.di.DependencyModule
-import `fun`.gladkikh.app.fastpallet6.repository.SettingsRepository
 import android.app.Application
 import android.content.Context
 import org.koin.android.ext.koin.androidContext
@@ -18,7 +17,6 @@ class App : Application() {
     companion object {
         private var instance: App? = null
         fun appContext(): Context? = instance?.applicationContext
-        var settingsRepository: SettingsRepository = SettingsRepository()
     }
 
     override fun onCreate() {
