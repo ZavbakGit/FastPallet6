@@ -19,14 +19,9 @@ interface CreatePalletUpdateDao {
     fun update(entity: BoxCreatePalletDb)
 
 
-    @Transaction
-    fun insertOrUpdateListBox(list: List<BoxCreatePalletDb>) {
-        list.forEach {
-            if (insertIgnore(it) == -1L) {
-                update(it)
-            }
-        }
-    }
+
+    @Insert
+    fun insertListBox(list: List<BoxCreatePalletDb>)
 
     @Transaction
     fun insertOrUpdate(entity: BoxCreatePalletDb) {

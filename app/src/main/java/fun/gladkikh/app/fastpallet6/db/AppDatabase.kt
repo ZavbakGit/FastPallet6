@@ -2,6 +2,7 @@ package `fun`.gladkikh.app.fastpallet6.db
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.BoxCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.doc.DocCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.PalletCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.product.ProductCreatePalletQueryDao
@@ -26,4 +27,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getDocCreatePalletQueryDao(): DocCreatePalletQueryDao
     abstract fun getProductCreatePalletQueryDao(): ProductCreatePalletQueryDao
     abstract fun getPalletCreatePalletQueryDao(): PalletCreatePalletQueryDao
+    abstract fun getBoxCreatePalletQueryDao(): BoxCreatePalletQueryDao
 }

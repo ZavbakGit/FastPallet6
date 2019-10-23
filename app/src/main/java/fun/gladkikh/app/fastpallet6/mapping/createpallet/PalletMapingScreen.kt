@@ -1,7 +1,7 @@
 package `fun`.gladkikh.app.fastpallet6.mapping.createpallet
 
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.BoxItemCreatePalletQueryDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.TotalInfoPalletCreatePalletQueryDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.PalletTotalInfoCreatePalletQueryDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.BoxItemCreatePallet
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.TotalInfoPalletCreatePallet
 
@@ -16,7 +16,7 @@ fun BoxItemCreatePalletQueryDb.toObject(): BoxItemCreatePallet {
     )
 }
 
-fun TotalInfoPalletCreatePalletQueryDb.toObject(): TotalInfoPalletCreatePallet {
+fun PalletTotalInfoCreatePalletQueryDb.toObject(): TotalInfoPalletCreatePallet {
     return TotalInfoPalletCreatePallet(
         docGuid = docGuid,
         prodGuid = prodGuid,

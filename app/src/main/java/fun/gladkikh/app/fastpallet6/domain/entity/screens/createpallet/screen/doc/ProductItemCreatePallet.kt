@@ -2,6 +2,6 @@ package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen
 
 data class ProductItemCreatePallet(val guid: String,
                                    val name: String?,
-                                   val boxCount: Int?,
-                                   val boxWeight: Float?,
-                                   val palCount:Int?)
+                                   var boxCount: Int?,
+                                   var boxWeight: Float?,
+                                   var palCount:Int?)

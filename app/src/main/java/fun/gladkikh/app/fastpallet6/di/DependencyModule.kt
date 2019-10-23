@@ -3,17 +3,18 @@ package `fun`.gladkikh.app.fastpallet6.di
 import `fun`.gladkikh.app.fastpallet6.db.AppDatabase
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.BoxCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.doc.DocCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.PalletCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.product.ProductCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.domain.usecase.testdata.AddTestDataUseCase
 import `fun`.gladkikh.app.fastpallet6.network.ApiFactory
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.DocCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.repository.DocumentsRepository
 import `fun`.gladkikh.app.fastpallet6.repository.SettingsRepository
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.ProductCreatePalletRepository
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.*
+import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletViewModel
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc.DocCreatePalletViewModel
+import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.PalletCreatePalletViewModel
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletViewModel
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.documents.DocumentsViewModel
 import android.content.Context
@@ -28,7 +29,7 @@ object DependencyModule {
     val appModule = module {
         single { getDataBase(androidContext()) }
 
-        //Добавляем  Dao
+        //Добавляем  DAO
         //*****************************************************************************************
         //Documents
         single { getDocumentsQueryDao(get()) }
@@ -38,6 +39,7 @@ object DependencyModule {
         single { getDocCreatePalletQueryDao(get()) }
         single { getProductCreatePalletQueryDao(get()) }
         single { getPalletCreatePalletQueryDao(get()) }
+        single { getBoxCreatePalletQueryDao(get()) }
 
         //Добавляем  repository
         //****************************************************************************************
@@ -48,6 +50,8 @@ object DependencyModule {
         single { CreatePalletRepositoryUpdate(get()) }
         single { DocCreatePalletRepository(get()) }
         single { ProductCreatePalletRepository(get()) }
+        single { PalletCreatePalletRepository(get()) }
+        single { BoxCreatePalletRepository(get()) }
 
 
         //Настройки
@@ -64,6 +68,8 @@ object DependencyModule {
         //CreatePallet
         viewModel { DocCreatePalletViewModel(get()) }
         viewModel { ProductCreatePalletViewModel(get()) }
+        viewModel { PalletCreatePalletViewModel(get()) }
+        viewModel { BoxCreatePalletViewModel(get(),get()) }
 
 
         single { AddTestDataUseCase(get()) }
@@ -97,4 +103,7 @@ object DependencyModule {
         return database.getPalletCreatePalletQueryDao()
     }
 
+    private fun getBoxCreatePalletQueryDao(database: AppDatabase): BoxCreatePalletQueryDao {
+        return database.getBoxCreatePalletQueryDao()
+    }
 }

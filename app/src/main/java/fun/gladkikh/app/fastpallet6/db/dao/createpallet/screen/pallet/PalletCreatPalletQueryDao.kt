@@ -1,7 +1,7 @@
 package `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet
 
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.BoxItemCreatePalletQueryDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.TotalInfoPalletCreatePalletQueryDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.PalletTotalInfoCreatePalletQueryDb
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
@@ -38,5 +38,5 @@ interface PalletCreatePalletQueryDao {
             "JOIN BoxCreatePalletDb Box on Box.guidPallet = Pal.guid " +
             "where Pal.guid =:guidPallet " +
             "Group By Pal.guid")
-    fun getTotalInfoPalletCreatePalletQueryDb(guidPallet:String): LiveData<TotalInfoPalletCreatePalletQueryDb>
+    fun getTotalInfoPalletCreatePalletQueryDb(guidPallet:String): LiveData<PalletTotalInfoCreatePalletQueryDb>
 }

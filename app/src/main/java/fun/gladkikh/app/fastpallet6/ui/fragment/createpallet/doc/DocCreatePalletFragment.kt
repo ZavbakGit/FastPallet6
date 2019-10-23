@@ -30,6 +30,14 @@ class DocCreatePalletFragment :BaseFragment(){
             tvInfo.text = it.entity?.description?:""
         })
 
+        viewModel.showProgressBarFrag.observe(viewLifecycleOwner, Observer {
+            if (it){
+                smoothProgressBar.visibility = View.VISIBLE
+            }else{
+                smoothProgressBar.visibility = View.GONE
+            }
+        })
+
 
         adapter =
             Adapter(activity as Context)

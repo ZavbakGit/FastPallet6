@@ -60,6 +60,6 @@ class CreatePalletRepositoryUpdate(val createPalletUpdateDao: CreatePalletUpdate
     }
 
     fun saveListBox(list: List<Box>) =
-        createPalletUpdateDao.insertOrUpdateListBox(list.map { it.toDb() })
+        createPalletUpdateDao.insertListBox(list.map { it.toDb() })
 
 }
