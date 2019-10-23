@@ -1,7 +1,7 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product
 
 import `fun`.gladkikh.app.fastpallet6.R
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.PalletItemCreatePallet
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.product.PalletItemCreatePallet
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
 import android.content.Context

@@ -3,8 +3,9 @@ package `fun`.gladkikh.app.fastpallet6.di
 import `fun`.gladkikh.app.fastpallet6.db.AppDatabase
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
-import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.DocCreatePalletQueryDao
-import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.ProductCreatePalletQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.doc.DocCreatePalletQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.PalletCreatePalletQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.product.ProductCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.domain.usecase.testdata.AddTestDataUseCase
 import `fun`.gladkikh.app.fastpallet6.network.ApiFactory
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate
@@ -36,6 +37,7 @@ object DependencyModule {
         single { getCreatePalletUpdateDao(get()) }
         single { getDocCreatePalletQueryDao(get()) }
         single { getProductCreatePalletQueryDao(get()) }
+        single { getPalletCreatePalletQueryDao(get()) }
 
         //Добавляем  repository
         //****************************************************************************************
@@ -76,12 +78,11 @@ object DependencyModule {
 
 
     //DAO
-    private fun getCreatePalletUpdateDao(database: AppDatabase): CreatePalletUpdateDao {
-        return database.getCreatePalletUpdateDao()
-    }
-
     private fun getDocumentsQueryDao(database: AppDatabase): DocumentsQueryDao {
         return database.getDocumentsQueryDao()
+    }
+    private fun getCreatePalletUpdateDao(database: AppDatabase): CreatePalletUpdateDao {
+        return database.getCreatePalletUpdateDao()
     }
 
     private fun getDocCreatePalletQueryDao(database: AppDatabase): DocCreatePalletQueryDao {
@@ -90,6 +91,10 @@ object DependencyModule {
 
     private fun getProductCreatePalletQueryDao(database: AppDatabase): ProductCreatePalletQueryDao {
         return database.getProductCreatePalletQueryDao()
+    }
+
+    private fun getPalletCreatePalletQueryDao(database: AppDatabase): PalletCreatePalletQueryDao {
+        return database.getPalletCreatePalletQueryDao()
     }
 
 }

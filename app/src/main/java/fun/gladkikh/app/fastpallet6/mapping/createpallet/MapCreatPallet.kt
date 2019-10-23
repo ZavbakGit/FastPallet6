@@ -3,10 +3,10 @@ package `fun`.gladkikh.app.fastpallet6.mapping.createpallet
 
 import `fun`.gladkikh.app.fastpallet6.common.getFloatByParseStr
 import `fun`.gladkikh.app.fastpallet6.common.getIntByParseStr
-import `fun`.gladkikh.app.fastpallet6.db.entity.BoxCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.CreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.PalletCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.BoxCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.CreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.PalletCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.ProductCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.*
 import `fun`.gladkikh.app.fastpallet6.network.intity.DocResponse
 import java.util.*

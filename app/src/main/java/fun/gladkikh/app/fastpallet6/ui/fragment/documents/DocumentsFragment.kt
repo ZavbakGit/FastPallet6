@@ -61,6 +61,11 @@ class DocumentsFragment : BaseFragment() {
                         viewModel.loadDocs()
                         return@setOnMenuItemClickListener true
                     }
+                    R.id.addTestData -> {
+                        viewModel.saveTestData()
+                        return@setOnMenuItemClickListener true
+                    }
+
                     else -> false
                 }
             }

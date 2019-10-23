@@ -1,7 +1,7 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc
 
 import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.ProductItemCreatePallet
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.doc.ProductItemCreatePallet
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.DocCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
 import androidx.lifecycle.LiveData

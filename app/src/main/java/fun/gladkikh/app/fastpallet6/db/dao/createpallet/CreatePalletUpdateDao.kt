@@ -1,9 +1,9 @@
 package `fun`.gladkikh.app.fastpallet6.db.dao.createpallet
 
-import `fun`.gladkikh.app.fastpallet6.db.entity.BoxCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.CreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.PalletCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.BoxCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.CreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.PalletCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.ProductCreatePalletDb
 import androidx.room.*
 
 @Dao

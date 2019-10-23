@@ -1,7 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6.repository.createpallet
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
-import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.*
 
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toDb
