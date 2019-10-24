@@ -1,5 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6.domain
 
+import `fun`.gladkikh.app.fastpallet6.common.getCyrillicLetterByNumber
 import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
 import io.reactivex.Flowable

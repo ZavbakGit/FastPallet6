@@ -1,9 +1,7 @@
 package `fun`.gladkikh.app.fastpallet6.mapping.createpallet
 
-import `fun`.gladkikh.app.fastpallet6.db.entity.PalletItemCreatePalletQueryDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.ProductItemCreatePalletQueryDb
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.PalletItemCreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.ProductItemCreatePallet
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.product.PalletItemCreatePalletQueryDb
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.product.PalletItemCreatePallet
 
 fun PalletItemCreatePalletQueryDb.toObject(): PalletItemCreatePallet {
     return PalletItemCreatePallet(
@@ -15,3 +13,4 @@ fun PalletItemCreatePalletQueryDb.toObject(): PalletItemCreatePallet {
         palNumber = this.palNumber
     )
 }
+

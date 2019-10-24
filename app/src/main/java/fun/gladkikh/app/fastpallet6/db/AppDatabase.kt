@@ -2,12 +2,14 @@ package `fun`.gladkikh.app.fastpallet6.db
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
-import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.DocCreatePalletQueryDao
-import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.ProductCreatePalletQueryDao
-import `fun`.gladkikh.app.fastpallet6.db.entity.BoxCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.CreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.PalletCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.BoxCreatePalletQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.doc.DocCreatePalletQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.PalletCreatePalletQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.product.ProductCreatePalletQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.BoxCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.CreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.PalletCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.ProductCreatePalletDb
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -24,4 +26,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getDocumentsQueryDao(): DocumentsQueryDao
     abstract fun getDocCreatePalletQueryDao(): DocCreatePalletQueryDao
     abstract fun getProductCreatePalletQueryDao(): ProductCreatePalletQueryDao
+    abstract fun getPalletCreatePalletQueryDao(): PalletCreatePalletQueryDao
+    abstract fun getBoxCreatePalletQueryDao(): BoxCreatePalletQueryDao
 }

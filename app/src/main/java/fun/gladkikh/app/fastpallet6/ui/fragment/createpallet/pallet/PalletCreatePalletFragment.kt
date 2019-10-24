@@ -1,29 +1,31 @@
-package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product
+package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet
 
 import `fun`.gladkikh.app.fastpallet6.R
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.product.PalletItemCreatePallet
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.BoxItemCreatePallet
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
-import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.PalletCreatePalletFragment
+import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletFragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.doc_create_pallet_frag.*
+import kotlinx.android.synthetic.main.documents_frag.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ProductCreatePalletFragment : BaseFragment() {
-    override val layoutRes = R.layout.doc_create_pallet_frag
-    override val viewModel: ProductCreatePalletViewModel by viewModel()
+class PalletCreatePalletFragment : BaseFragment() {
+    override val layoutRes = R.layout.base_screen
+    override val viewModel: PalletCreatePalletViewModel by viewModel()
     private lateinit var adapter: Adapter
 
     companion object {
         val EXTRA_GUID = this::class.java.name + "extra.GUID"
     }
 
+
     override fun initSubscription() {
         super.initSubscription()
+
         viewModel.setGuid(arguments?.get(EXTRA_GUID) as String)
 
         adapter =
@@ -34,21 +36,25 @@ class ProductCreatePalletFragment : BaseFragment() {
             adapter.list = it.list
         })
 
+        tvInfo.text = "Паллета ${arguments?.get(EXTRA_GUID)}"
+
+
         listView.setOnItemClickListener { _, _, i, _ ->
             val bundle = Bundle()
-            bundle.putString(PalletCreatePalletFragment.EXTRA_GUID, adapter.list[i].guid)
+            bundle.putString(BoxCreatePalletFragment.EXTRA_GUID, adapter.list[i].boxGuid)
             mainActivity.navController
-                .navigate(R.id.action_productCreatePalletFragment_to_palletFragment, bundle)
+                .navigate(R.id.action_palletFragment_to_boxCreatePalletFragment, bundle)
         }
 
     }
 
-    private class Adapter(mContext: Context) : MyBaseAdapter<PalletItemCreatePallet>(mContext) {
-        override fun bindView(item: PalletItemCreatePallet, holder: Any) {
+
+    private class Adapter(mContext: Context) : MyBaseAdapter<BoxItemCreatePallet>(mContext) {
+        override fun bindView(item: BoxItemCreatePallet, holder: Any) {
             holder as ViewHolder
-            holder.tvInfo.text = item.palNumber
-            holder.tvLeft.text = "${item.boxCount}  / ${item.boxWeight}"
-            holder.tvRight.text = ""
+            holder.tvInfo.text = item.boxGuid
+            holder.tvLeft.text = "${item.palGuid}"
+            holder.tvRight.text = "м ${item.boxCount} к ${item.boxWeight}"
         }
 
         override fun getLayout(): Int = R.layout.base_item

@@ -9,9 +9,10 @@ import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import kotlin.system.measureTimeMillis
 
 class DocumentsViewModel(val documentsRepository: DocumentsRepository,
-                         val addTestDataUseCase: AddTestDataUseCase,
+                         private val addTestDataUseCase: AddTestDataUseCase,
                          val settingsRepository: SettingsRepository,
                          val apiFactory: ApiFactory
 ) : BaseViewModel() {
@@ -40,7 +41,11 @@ class DocumentsViewModel(val documentsRepository: DocumentsRepository,
     }
 
     fun saveTestData(){
-        addTestDataUseCase.save()
+        val elapsedTime = measureTimeMillis {
+            addTestDataUseCase.save()
+        }
+
+        message.value = "Выполненялось: ${(elapsedTime/1000)}"
     }
 
     fun loadDocs() {

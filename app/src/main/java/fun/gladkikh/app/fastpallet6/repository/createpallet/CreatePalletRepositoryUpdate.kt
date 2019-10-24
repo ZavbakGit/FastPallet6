@@ -1,7 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6.repository.createpallet
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
-import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.*
 
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toDb
@@ -61,6 +60,6 @@ class CreatePalletRepositoryUpdate(val createPalletUpdateDao: CreatePalletUpdate
     }
 
     fun saveListBox(list: List<Box>) =
-        createPalletUpdateDao.insertOrUpdateListBox(list.map { it.toDb() })
+        createPalletUpdateDao.insertListBox(list.map { it.toDb() })
 
 }

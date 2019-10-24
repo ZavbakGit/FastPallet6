@@ -25,9 +25,25 @@
     <fragment
         android:id="@+id/productCreatePalletFragment"
         android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletFragment"
-        android:label="ProductCreatePalletFragment" />
+        android:label="ProductCreatePalletFragment" >
+        <action
+            android:id="@+id/action_productCreatePalletFragment_to_palletFragment"
+            app:destination="@id/palletFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="fun.gladkikh.app.fastpallet6.ui.fragment.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/palletFragment"
+        android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.PalletCreatePalletFragment"
+        android:label="PalletFragment" >
+        <action
+            android:id="@+id/action_palletFragment_to_boxCreatePalletFragment"
+            app:destination="@id/boxCreatePalletFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/boxCreatePalletFragment"
+        android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletFragment"
+        android:label="BoxCreatePalletFragment" />
 </navigation>

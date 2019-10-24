@@ -1,9 +1,9 @@
 package `fun`.gladkikh.app.fastpallet6.db.dao.createpallet
 
-import `fun`.gladkikh.app.fastpallet6.db.entity.BoxCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.CreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.PalletCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.ProductCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.BoxCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.CreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.PalletCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.ProductCreatePalletDb
 import androidx.room.*
 
 @Dao
@@ -19,14 +19,9 @@ interface CreatePalletUpdateDao {
     fun update(entity: BoxCreatePalletDb)
 
 
-    @Transaction
-    fun insertOrUpdateListBox(list: List<BoxCreatePalletDb>) {
-        list.forEach {
-            if (insertIgnore(it) == -1L) {
-                update(it)
-            }
-        }
-    }
+
+    @Insert
+    fun insertListBox(list: List<BoxCreatePalletDb>)
 
     @Transaction
     fun insertOrUpdate(entity: BoxCreatePalletDb) {
