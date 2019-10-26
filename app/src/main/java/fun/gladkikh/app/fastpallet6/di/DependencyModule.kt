@@ -13,6 +13,7 @@ import `fun`.gladkikh.app.fastpallet6.repository.DocumentsRepository
 import `fun`.gladkikh.app.fastpallet6.repository.SettingsRepository
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.*
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletViewModel
+import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletViewModel1
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc.DocCreatePalletViewModel
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.PalletCreatePalletViewModel
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletViewModel
@@ -51,7 +52,7 @@ object DependencyModule {
         single { DocCreatePalletRepository(get()) }
         single { ProductCreatePalletRepository(get()) }
         single { PalletCreatePalletRepository(get()) }
-        single { BoxCreatePalletRepository(get()) }
+        single { BoxCreatePalletRepository(get(),get()) }
 
 
         //Настройки
@@ -69,7 +70,8 @@ object DependencyModule {
         viewModel { DocCreatePalletViewModel(get()) }
         viewModel { ProductCreatePalletViewModel(get()) }
         viewModel { PalletCreatePalletViewModel(get()) }
-        viewModel { BoxCreatePalletViewModel(get(),get()) }
+        viewModel { BoxCreatePalletViewModel1(get()) }
+        viewModel { BoxCreatePalletViewModel(get()) }
 
 
         single { AddTestDataUseCase(get()) }

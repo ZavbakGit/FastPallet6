@@ -1,15 +1,11 @@
 package `fun`.gladkikh.app.fastpallet6.mapping.createpallet
 
-import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.BoxTotalInfoCreatePalletQueryDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.BoxItemCreatePalletQueryDb
-import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.PalletTotalInfoCreatePalletQueryDb
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxTotalInfoCreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.BoxItemCreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.TotalInfoPalletCreatePallet
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.BoxScreenCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePallet
 import java.util.*
 
-fun BoxTotalInfoCreatePalletQueryDb.toObject(): BoxTotalInfoCreatePallet {
-    return BoxTotalInfoCreatePallet(
+fun BoxScreenCreatePalletDb.toObject(): BoxScreenCreatePallet {
+    return BoxScreenCreatePallet(
         boxCountBox = boxCountBox,
         palNumber = palNumber,
         boxWeight = boxWeight,

@@ -2,7 +2,7 @@ package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen
 
 import java.util.*
 
-data class BoxTotalInfoCreatePallet(
+data class BoxScreenCreatePallet(
     val boxCountBox: Int? = null,
     val boxWeight: Float? = null,
     val palTotalWeight: Float? = null,

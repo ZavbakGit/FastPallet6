@@ -1,17 +1,23 @@
 package `fun`.gladkikh.app.fastpallet6.repository.createpallet
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.BoxCreatePalletQueryDao
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxTotalInfoCreatePallet
+import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePallet
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toObject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 
 
-class BoxCreatePalletRepository(private val repository: BoxCreatePalletQueryDao) {
-    fun getBoxTotalInfoCreatePallet(guidBox: String): LiveData<BoxTotalInfoCreatePallet> =
-        Transformations.map(
-            repository.getBoxTotalInfoCreatePalletQueryDb(guidBox)
-        ) {
-            return@map it.toObject()
-        }
+class BoxCreatePalletRepository(private val repository: BoxCreatePalletQueryDao,
+                                private val repositoryUpdate: CreatePalletRepositoryUpdate) {
+
+    fun getBoxScreenCreatePalletTotal(guidBox: String):BoxScreenCreatePallet{
+        return repository.getBoxScreenCreatePalletTotalDb(guidBox).toObject()
+    }
+
+    fun getBoxScreenCreatePallet(guidBox: String): BoxScreenCreatePallet{
+        return repository.getBoxScreenCreatePalletDb(guidBox).toObject()
+    }
+
+
+    fun saveListBox(list: List<Box>) = repositoryUpdate.saveListBox(list)
+
 }
