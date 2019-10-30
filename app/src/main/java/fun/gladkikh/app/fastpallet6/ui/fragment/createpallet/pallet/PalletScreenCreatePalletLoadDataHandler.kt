@@ -1,6 +1,6 @@
-package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box
+package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet
 
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.box.BoxScreenCreatePalletRepository
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.pallet.PalletScreenCreatePalletRepository
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -10,10 +10,10 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
-class BoxScreenLoadDataHandler(
-    private val viewStateLiveData: MutableLiveData<BoxScreenViewState>,
+class PalletScreenCreatePalletLoadDataHandler(
+    private val viewStateLiveData: MutableLiveData<PalletScreenCreatePalletViewState>,
     compositeDisposable: CompositeDisposable,
-    private val repository: BoxScreenCreatePalletRepository
+    private val repository: PalletScreenCreatePalletRepository
 ) {
     private val publishSubject = PublishSubject.create<String>()
 
@@ -28,22 +28,22 @@ class BoxScreenLoadDataHandler(
 
     private fun getLoadDataFlowable(): Flowable<String> {
         return publishSubject.toFlowable(BackpressureStrategy.BUFFER)
-            .doOnNext {
+            .map {
                 viewStateLiveData.postValue(
-                    BoxScreenViewState(
+                    PalletScreenCreatePalletViewState(
                         data = repository.getData(it),
-                        progress = true,
-                        sizeBuffer = viewStateLiveData.value!!.sizeBuffer
+                        progress = true
                     )
                 )
+
+                return@map it
             }
-            .debounce(2000, TimeUnit.MILLISECONDS)
+            .debounce(100, TimeUnit.MILLISECONDS)
             .doOnNext {
                 viewStateLiveData.postValue(
-                    BoxScreenViewState(
+                    PalletScreenCreatePalletViewState(
                         data = repository.getTotalData(it),
-                        progress = false,
-                        sizeBuffer = viewStateLiveData.value!!.sizeBuffer
+                        progress = false
                     )
                 )
             }

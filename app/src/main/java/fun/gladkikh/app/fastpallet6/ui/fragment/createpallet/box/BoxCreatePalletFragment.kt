@@ -36,7 +36,7 @@ class BoxCreatePalletFragment : BaseFragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    fun refreshScreen(viewState: BoxScreenViewState) {
+    fun refreshScreen(viewState: BoxScreenCreatePalletViewState) {
 
 
         tvDoc.text = "Документ: " + viewState.data?.docDescription

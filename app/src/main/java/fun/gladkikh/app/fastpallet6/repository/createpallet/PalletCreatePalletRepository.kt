@@ -1,8 +1,8 @@
 package `fun`.gladkikh.app.fastpallet6.repository.createpallet
 
-import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.PalletCreatePalletQueryDao
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.BoxItemCreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.TotalInfoPalletCreatePallet
+import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.old.PalletCreatePalletQueryDao
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.old.BoxItemCreatePallet
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.old.TotalInfoPalletCreatePallet
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toObject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations

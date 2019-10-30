@@ -27,23 +27,23 @@
         android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletFragment"
         android:label="ProductCreatePalletFragment" >
         <action
-            android:id="@+id/action_productCreatePalletFragment_to_palletFragment"
-            app:destination="@id/palletFragment" />
+            android:id="@+id/action_productCreatePalletFragment_to_palletCreatePalletFragment"
+            app:destination="@id/palletCreatePalletFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="fun.gladkikh.app.fastpallet6.ui.fragment.SettingsFragment"
         android:label="SettingsFragment" />
     <fragment
-        android:id="@+id/palletFragment"
-        android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.PalletCreatePalletFragment"
-        android:label="PalletFragment" >
-        <action
-            android:id="@+id/action_palletFragment_to_boxCreatePalletFragment"
-            app:destination="@id/boxCreatePalletFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/boxCreatePalletFragment"
         android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletFragment"
         android:label="BoxCreatePalletFragment" />
+    <fragment
+        android:id="@+id/palletCreatePalletFragment"
+        android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.PalletCreatePalletFragment"
+        android:label="PalletCreatePalletFragment" >
+        <action
+            android:id="@+id/action_palletCreatePalletFragment_to_boxCreatePalletFragment"
+            app:destination="@id/boxCreatePalletFragment" />
+    </fragment>
 </navigation>

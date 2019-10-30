@@ -1,6 +1,6 @@
-package `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet
+package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.old
 
-data class BoxItemCreatePalletQueryDb(
+data class BoxItemCreatePallet(
     val docGuid:String?,
     val prodGuid:String?,
     val palGuid:String?,

@@ -1,37 +1,34 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet
 
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.BoxItemCreatePallet
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.PalletCreatePalletRepository
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.pallet.PalletScreenCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 
-class PalletCreatePalletViewModel(private val repository: PalletCreatePalletRepository) :
+class PalletCreatePalletViewModel(repository: PalletScreenCreatePalletRepository) :
     BaseViewModel() {
-    private val viewStateLiveData = MutableLiveData<PalletCreatePalletViewState>()
-    var listLiveData: LiveData<List<BoxItemCreatePallet>>? = null
 
-    private val listObserver = Observer<List<BoxItemCreatePallet>> {
-        viewStateLiveData.value =
-            PalletCreatePalletViewState(
-                list = it
-            )
-    }
+    var guid: String? = null
+        private set
+
+    private var viewStateLiveData = MutableLiveData<PalletScreenCreatePalletViewState>()
+
+    private val loadHandler: PalletScreenCreatePalletLoadDataHandler
+
+    fun getViewSate(): LiveData<PalletScreenCreatePalletViewState> = viewStateLiveData
 
     init {
-        viewStateLiveData.value = PalletCreatePalletViewState()
+        viewStateLiveData.value = PalletScreenCreatePalletViewState()
+        loadHandler = PalletScreenCreatePalletLoadDataHandler(
+            viewStateLiveData = viewStateLiveData,
+            compositeDisposable = disposables,
+            repository = repository
+        )
     }
 
-    fun getViewSate(): LiveData<PalletCreatePalletViewState> = viewStateLiveData
-
-    fun setGuid(guid: String) {
-        listLiveData = repository.getListBoxItemCreatePalletLiveData(guid)
-        listLiveData?.observeForever(listObserver)
+    fun setGuid(guidParam: String) {
+        loadHandler.loadData(guidParam)
+        this.guid = guidParam
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        listLiveData?.removeObserver(listObserver)
-    }
 }

@@ -1,12 +1,12 @@
-package `fun`.gladkikh.app.fastpallet6.mapping.createpallet.screen.box
+package `fun`.gladkikh.app.fastpallet6.mapping.createpallet.screen.pallet
 
-import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.BoxScreenDataDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.PalletScreenDataDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePalletData
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.PalletScreenCreatePalletData
 import java.util.*
 
-fun BoxScreenDataDb.toObject(): BoxScreenCreatePalletData {
-    return BoxScreenCreatePalletData(
+fun PalletScreenDataDb.toObject(): PalletScreenCreatePalletData {
+    return PalletScreenCreatePalletData(
         docGuid = docGuid,
         docStatus = Status.getStatusById(docStatus?:0),
         docBarcode = docBarcode,
@@ -44,11 +44,6 @@ fun BoxScreenDataDb.toObject(): BoxScreenCreatePalletData {
         palNumber = palNumber,
         palSclad = palSclad,
         palState = palState,
-        boxGuid = boxGuid,
-        boxBarcode = boxBarcode,
-        boxCountBox = boxCountBox,
-        boxData = Date(boxData?:0L),
-        boxWeight = boxWeight,
         totalProdCountBox = totalProdCountBox,
         totalProdCountPallet = totalProdCountPallet,
         totalProdRow = totalProdRow,

@@ -4,6 +4,7 @@ import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.BoxScreenCr
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePalletData
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.screen.box.toObject
+
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate
 
 class BoxScreenCreatePalletRepository (
@@ -11,11 +12,11 @@ class BoxScreenCreatePalletRepository (
     private val repositoryUpdate: CreatePalletRepositoryUpdate
 ){
 
-    fun getData(guidBox:String): BoxScreenCreatePalletData{
+    fun getData(guidBox:String): BoxScreenCreatePalletData {
       return  boxScreenCreatePalletDao.getData(guidBox).toObject()
     }
 
-    fun getTotalData(guidBox:String):BoxScreenCreatePalletData{
+    fun getTotalData(guidBox:String): BoxScreenCreatePalletData {
         return  boxScreenCreatePalletDao.getTotalData(guidBox).toObject()
     }
 

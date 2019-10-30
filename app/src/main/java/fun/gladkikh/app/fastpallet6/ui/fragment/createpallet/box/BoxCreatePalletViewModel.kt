@@ -5,6 +5,7 @@ import `fun`.gladkikh.app.fastpallet6.domain.checkEditDocByStatus
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.box.BoxScreenCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.util.*
@@ -15,16 +16,16 @@ class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
     var guid: String? = null
         private set
 
-    private var viewStateLiveData = MutableLiveData<BoxScreenViewState>()
+    private var viewStateLiveData = MutableLiveData<BoxScreenCreatePalletViewState>()
 
-    private val loadHandler: BoxScreenLoadDataHandler
+    private val loadHandler: BoxScreenCreatePalletLoadDataHandler
     private val addBoxHandler: AddBoxScreenHandler
 
-    fun getViewSate(): LiveData<BoxScreenViewState> = viewStateLiveData
+    fun getViewSate(): LiveData<BoxScreenCreatePalletViewState> = viewStateLiveData
 
     init {
-        viewStateLiveData.value = BoxScreenViewState()
-        loadHandler = BoxScreenLoadDataHandler(
+        viewStateLiveData.value = BoxScreenCreatePalletViewState()
+        loadHandler = BoxScreenCreatePalletLoadDataHandler(
             viewStateLiveData = viewStateLiveData,
             compositeDisposable = disposables,
             repository = repository
@@ -56,7 +57,7 @@ class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
     }
 
 
-    fun getViewStateByBoxAndBuffer(box: Box,buffer:Int): BoxScreenViewState {
+    fun getViewStateByBoxAndBuffer(box: Box,buffer:Int): BoxScreenCreatePalletViewState {
         val data = viewStateLiveData.value!!.data!!.copy(
             boxWeight = box.weight,
             boxBarcode = box.barcode,
@@ -65,7 +66,7 @@ class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
             boxCountBox = box.countBox
         )
 
-        return BoxScreenViewState(
+        return BoxScreenCreatePalletViewState(
             data = data,
             sizeBuffer = buffer,
             progress = viewStateLiveData.value!!.progress
