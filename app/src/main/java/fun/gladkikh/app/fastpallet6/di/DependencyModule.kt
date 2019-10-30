@@ -4,7 +4,6 @@ import `fun`.gladkikh.app.fastpallet6.db.AppDatabase
 import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.BoxScreenCreatePalletDao
-import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.old.BoxCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.doc.DocCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.PalletCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.product.ProductCreatePalletQueryDao
@@ -45,7 +44,6 @@ object DependencyModule {
         single { getDocCreatePalletQueryDao(get()) }
         single { getProductCreatePalletQueryDao(get()) }
         single { getPalletCreatePalletQueryDao(get()) }
-        single { getBoxCreatePalletQueryDao(get()) }
 
         //Добавляем  repository
         //****************************************************************************************
@@ -60,7 +58,7 @@ object DependencyModule {
         single { DocCreatePalletRepository(get()) }
         single { ProductCreatePalletRepository(get()) }
         single { PalletCreatePalletRepository(get()) }
-        single { BoxCreatePalletRepository(get(),get()) }
+
 
 
         //Настройки
@@ -118,7 +116,5 @@ object DependencyModule {
         return database.getPalletCreatePalletQueryDao()
     }
 
-    private fun getBoxCreatePalletQueryDao(database: AppDatabase): BoxCreatePalletQueryDao {
-        return database.getBoxCreatePalletQueryDao()
-    }
+
 }
