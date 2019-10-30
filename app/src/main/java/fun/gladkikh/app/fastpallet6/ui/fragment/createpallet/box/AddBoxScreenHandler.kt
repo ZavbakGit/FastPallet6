@@ -1,7 +1,7 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box
 
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.BoxCreatePalletRepository
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.box.BoxScreenCreatePalletRepository
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 class AddBoxScreenHandler(
     compositeDisposable: CompositeDisposable,
-    private val repository: BoxCreatePalletRepository,
+    private val repository: BoxScreenCreatePalletRepository,
     private val beforeAddFun: (box: Box, buffer: Int) -> Unit,
     private val afterSaveFun: (lastBox: Box, buffer: Int) -> Unit
 ) {

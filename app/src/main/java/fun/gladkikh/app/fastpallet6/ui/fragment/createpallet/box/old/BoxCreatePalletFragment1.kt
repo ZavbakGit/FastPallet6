@@ -1,8 +1,9 @@
-package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box
+package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.old
 
 import `fun`.gladkikh.app.fastpallet6.R
 import `fun`.gladkikh.app.fastpallet6.common.toSimpleDateTime
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
+import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletViewModel
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.box_scr.*
 import kotlinx.android.synthetic.main.documents_frag.tvInfo
@@ -25,17 +26,17 @@ class BoxCreatePalletFragment1 : BaseFragment() {
 //        }
 
         viewModel.getViewSate().observe(viewLifecycleOwner, Observer {
-            tvInfo.text = "Коробка " + it.data?.boxGuid + " Паллета " + it.data?.palNumber
-
-            tv_info_doc_right.text = "М${it.data?.palTotalCountBox.toString()} К${it.data?.palTotalWeight.toString()}"
-
-            tvbarcode.text = it.data?.boxBarcode
-            tvDate.text = it.data?.boxDate?.toSimpleDateTime()
-
-            edPlace.setText(it.data?.boxCountBox.toString())
-            edWeight.setText(it.data?.boxWeight.toString())
-
-            tvBuffer.text = it.sizeBuffer.toString()
+//            tvInfo.text = "Коробка " + it.data?.boxGuid + " Паллета " + it.data?.palNumber
+//
+//            tv_info_doc_right.text = "М${it.data?.palTotalCountBox.toString()} К${it.data?.palTotalWeight.toString()}"
+//
+//            tvbarcode.text = it.data?.boxBarcode
+//            tvDate.text = it.data?.boxDate?.toSimpleDateTime()
+//
+//            edPlace.setText(it.data?.boxCountBox.toString())
+//            edWeight.setText(it.data?.boxWeight.toString())
+//
+//            tvBuffer.text = it.sizeBuffer.toString()
         })
 
 

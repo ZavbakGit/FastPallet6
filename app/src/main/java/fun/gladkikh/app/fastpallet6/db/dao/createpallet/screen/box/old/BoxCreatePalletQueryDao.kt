@@ -1,14 +1,11 @@
-package `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box
+package `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.old
 
-import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.BoxScreenCreatePalletDb
-import androidx.lifecycle.LiveData
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.old.BoxScreenCreatePalletDb
 import androidx.room.Dao
 import androidx.room.Query
 
 @Dao
 interface BoxCreatePalletQueryDao {
-
-
     @Query("SELECT Sum(Box.countBox) AS boxCountBox,  " +
             "       Sum(Round(Box.weight * 1000) ) / 1000 AS boxWeight,  " +
             "       (  " +
@@ -55,7 +52,7 @@ interface BoxCreatePalletQueryDao {
             "          Doc.guid;")
     fun getBoxScreenCreatePalletTotalDb(guidBox:String): BoxScreenCreatePalletDb
 
-    @Query("SELECT guid AS boxGuid,  barcode AS boxBarcode,data AS boxDate, " +
-            "countBox AS boxCountBox, weight AS boxWeight FROM BoxCreatePalletDb WHERE guid =:guid")
-    fun getBoxScreenCreatePalletDb(guid:String):BoxScreenCreatePalletDb
+    //ToDo Загрузить статус
+    @Query("SELECT guid AS boxGuid,  barcode AS boxBarcode,data AS boxDate,countBox AS boxCountBox, weight AS boxWeight FROM BoxCreatePalletDb WHERE guid =:guid")
+    fun getBoxScreenCreatePalletDb(guid:String): BoxScreenCreatePalletDb
 }

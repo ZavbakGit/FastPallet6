@@ -1,15 +1,15 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box
 
 import `fun`.gladkikh.app.fastpallet6.common.getWeightByBarcode
+import `fun`.gladkikh.app.fastpallet6.domain.checkEditDocByStatus
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePallet
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.BoxCreatePalletRepository
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.box.BoxScreenCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.util.*
 
-class BoxCreatePalletViewModel(repository: BoxCreatePalletRepository) :
+class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
     BaseViewModel() {
 
     var guid: String? = null
@@ -60,10 +60,9 @@ class BoxCreatePalletViewModel(repository: BoxCreatePalletRepository) :
         val data = viewStateLiveData.value!!.data!!.copy(
             boxWeight = box.weight,
             boxBarcode = box.barcode,
-            boxDate = box.data,
+            boxData = box.data,
             boxGuid = box.guid,
             boxCountBox = box.countBox
-
         )
 
         return BoxScreenViewState(
@@ -75,11 +74,17 @@ class BoxCreatePalletViewModel(repository: BoxCreatePalletRepository) :
     }
 
     fun addBox(barcode: String) {
+
+        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)){
+            messageError.postValue("Нельзя менять документ с этим статусом!")
+            return
+        }
+
         val weight = getWeightByBarcode(
             barcode = barcode,
-            start = viewStateLiveData.value?.data?.prodStart ?: 0,
-            finish = viewStateLiveData.value?.data?.prodEnd ?: 0,
-            coff = viewStateLiveData.value?.data?.prodCoeff ?: 0f
+            start = viewStateLiveData.value?.data?.prodWeightStartProduct ?: 0,
+            finish = viewStateLiveData.value?.data?.prodWeightEndProduct ?: 0,
+            coff = viewStateLiveData.value?.data?.prodWeightCoffProduct ?: 0f
         )
 
         if (weight == 0f) {

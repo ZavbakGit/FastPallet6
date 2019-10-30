@@ -1,4 +1,4 @@
-package `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box
+package `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.old
 
 data class BoxInfoCreatePalletQueryDb(
     val boxCountBox: Int?,

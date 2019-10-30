@@ -1,11 +1,11 @@
-package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box
+package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.old
 
 import `fun`.gladkikh.app.fastpallet6.common.getWeightByBarcode
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePallet
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.old.BoxScreenCreatePallet
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.BoxCreatePalletRepository
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
+import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxScreenViewState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -31,12 +31,13 @@ class BoxCreatePalletViewModel1(
     private val dataObserver = Observer<BoxScreenCreatePallet> {
         viewStateLiveData.value =
             BoxScreenViewState(
-                it
+               // it
             )
     }
 
     init {
-        viewStateLiveData.value = BoxScreenViewState()
+        viewStateLiveData.value =
+            BoxScreenViewState()
 
         disposables.add(
             saveBufferBoxPublishSubject.toFlowable(BackpressureStrategy.BUFFER)
@@ -47,7 +48,7 @@ class BoxCreatePalletViewModel1(
                             boxWeight = it.last().weight,
                             boxGuid = it.last().guid,
                             boxCountBox = it.last().countBox,
-                            boxDate = it.last().data
+                            boxData = it.last().data
                         )
 
                     //Отсылаем на отображение
@@ -92,32 +93,32 @@ class BoxCreatePalletViewModel1(
 
     fun add(barcode: String) {
         //ToDo Проверка на доступы
-        val weight = getWeightByBarcode(
-            barcode = barcode,
-            start = viewStateLiveData.value?.data?.prodStart ?: 0,
-            finish = viewStateLiveData.value?.data?.prodEnd ?: 0,
-            coff = viewStateLiveData.value?.data?.prodCoeff ?: 0f
-        )
-
-        if (weight == 0f) {
-            messageError.value = "Ошибка в считывания веса! \n $barcode"
-            return
-        }
-
-        val box = Box(
-            guid = UUID.randomUUID().toString(),
-            guidPallet = viewStateLiveData.value?.data?.palGuid!!,
-            barcode = barcode,
-            countBox = 1,
-            weight = weight,
-            data = Date()
-        )
-
-        bufferBoxList.add(box)
-        saveBufferBoxPublishSubject.onNext(bufferBoxList)
-
-        //Удалим наблюдателя
-        repositoryLiveData?.removeObserver(dataObserver)
+//        val weight = getWeightByBarcode(
+//            //barcode = barcode,
+////            start = viewStateLiveData.value?.data?.prodStart ?: 0,
+////            finish = viewStateLiveData.value?.data?.prodEnd ?: 0,
+////            coff = viewStateLiveData.value?.data?.prodCoeff ?: 0f
+//        )
+//
+//        if (weight == 0f) {
+//            messageError.value = "Ошибка в считывания веса! \n $barcode"
+//            return
+//        }
+//
+//        val box = Box(
+//            guid = UUID.randomUUID().toString(),
+//            guidPallet = viewStateLiveData.value?.data?.palGuid!!,
+//            barcode = barcode,
+//            countBox = 1,
+//            weight = weight,
+//            data = Date()
+//        )
+//
+//        bufferBoxList.add(box)
+//        saveBufferBoxPublishSubject.onNext(bufferBoxList)
+//
+//        //Удалим наблюдателя
+//        repositoryLiveData?.removeObserver(dataObserver)
     }
 
 }

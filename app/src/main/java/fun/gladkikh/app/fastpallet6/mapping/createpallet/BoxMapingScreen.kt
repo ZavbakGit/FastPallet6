@@ -1,7 +1,8 @@
 package `fun`.gladkikh.app.fastpallet6.mapping.createpallet
 
-import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.BoxScreenCreatePalletDb
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePallet
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.old.BoxScreenCreatePalletDb
+import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.old.BoxScreenCreatePallet
 import java.util.*
 
 fun BoxScreenCreatePalletDb.toObject(): BoxScreenCreatePallet {
@@ -21,9 +22,11 @@ fun BoxScreenCreatePalletDb.toObject(): BoxScreenCreatePallet {
         docGuid = docGuid,
         docGuidServer = docGuidServer,
         docNumber = docNumber,
+        docStatus = Status.getStatusById(docStatus!!),
         palTotalCountBox = palTotalCountBox,
         palTotalRowsCount = palTotalRowsCount,
         palTotalWeight = palTotalWeight
+
     )
 }
 

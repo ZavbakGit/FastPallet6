@@ -1,6 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box
 
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.BoxCreatePalletRepository
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.box.BoxScreenCreatePalletRepository
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 class BoxScreenLoadDataHandler(
     private val viewStateLiveData: MutableLiveData<BoxScreenViewState>,
     compositeDisposable: CompositeDisposable,
-    private val repository: BoxCreatePalletRepository
+    private val repository: BoxScreenCreatePalletRepository
 ) {
     private val publishSubject = PublishSubject.create<String>()
 
@@ -31,7 +31,7 @@ class BoxScreenLoadDataHandler(
             .doOnNext {
                 viewStateLiveData.postValue(
                     BoxScreenViewState(
-                        data = repository.getBoxScreenCreatePallet(it),
+                        data = repository.getData(it),
                         progress = true,
                         sizeBuffer = viewStateLiveData.value!!.sizeBuffer
                     )
@@ -41,7 +41,7 @@ class BoxScreenLoadDataHandler(
             .doOnNext {
                 viewStateLiveData.postValue(
                     BoxScreenViewState(
-                        data = repository.getBoxScreenCreatePalletTotal(it),
+                        data = repository.getTotalData(it),
                         progress = false,
                         sizeBuffer = viewStateLiveData.value!!.sizeBuffer
                     )
