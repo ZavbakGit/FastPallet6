@@ -4,11 +4,11 @@ import `fun`.gladkikh.app.fastpallet6.R
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.box_screen_fragment.*
+import kotlinx.android.synthetic.main.screen_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BoxCreatePalletFragment : BaseFragment() {
-    override val layoutRes = R.layout.box_screen_fragment
+    override val layoutRes = R.layout.screen_fragment
     override val viewModel: BoxCreatePalletViewModel by viewModel()
 
     companion object {

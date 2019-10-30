@@ -24,6 +24,9 @@ class PalletCreatePalletViewModel(repository: PalletScreenCreatePalletRepository
             compositeDisposable = disposables,
             repository = repository
         )
+
+        //ToDo Без этого не срабатывает onNext
+        Thread.sleep(200)
     }
 
     fun setGuid(guidParam: String) {

@@ -44,6 +44,6 @@
         android:label="PalletCreatePalletFragment" >
         <action
             android:id="@+id/action_palletCreatePalletFragment_to_boxCreatePalletFragment"
-            app:destination="@id/boxCreatePalletFragment" />
+            app:destination="@+id/boxCreatePalletFragment" />
     </fragment>
 </navigation>

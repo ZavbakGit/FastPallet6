@@ -45,11 +45,18 @@
         android:layout_height="wrap_content"
         android:text="TextView" />
 
+
+
     <Button
         android:id="@+id/btAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
 
 
 </LinearLayout>

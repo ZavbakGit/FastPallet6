@@ -170,4 +170,5 @@ interface BoxScreenCreatePalletDao {
             "          Prod.guid, " +
             "          Doc.guid;")
     fun getTotalData(guidBox:String):BoxScreenDataDb
+
 }

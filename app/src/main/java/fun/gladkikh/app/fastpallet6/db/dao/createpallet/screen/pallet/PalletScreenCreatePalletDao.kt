@@ -1,5 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet
 
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.ItemPalletScreenDataDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.PalletScreenDataDb
 import androidx.room.Dao
 import androidx.room.Query
@@ -160,4 +161,14 @@ interface PalletScreenCreatePalletDao {
             "          Prod.guid, " +
             "          Doc.guid;")
     fun getTotalData(guidPallet:String):PalletScreenDataDb
+
+
+    @Query("SELECT Box.guid AS boxGuid,  " +
+            "Box.guidPallet AS guidPallet,  " +
+            "Box.barcode AS boxBarcode, " +
+            "Box.weight AS boxWeight, " +
+            "Box.countBox AS boxCountBox, " +
+            "Box.data AS boxData " +
+            "FROM  BoxCreatePalletDb Box WHERE Box.guidPallet =:guidBox ")
+    fun getListItem(guidBox:String):List<ItemPalletScreenDataDb>
 }

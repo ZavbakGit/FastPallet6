@@ -28,28 +28,39 @@ class PalletScreenCreatePalletLoadDataHandler(
 
     private fun getLoadDataFlowable(): Flowable<String> {
         return publishSubject.toFlowable(BackpressureStrategy.BUFFER)
-            .map {
+            //ToDo Непойму почему не переходит в другой поток
+            .delay(10, TimeUnit.MILLISECONDS)
+            .doOnNext { guid ->
                 viewStateLiveData.postValue(
                     PalletScreenCreatePalletViewState(
-                        data = repository.getData(it),
-                        progress = true
+                        data = repository.getData(guid),
+                        progress = true,
+                        list = repository.getListItem(guid).map {
+                            ItemBox(
+                                boxGuid = it.boxGuid,
+                                boxWeight = it.boxWeight,
+                                boxCountBox = it.boxCountBox,
+                                boxBarcode = it.boxBarcode,
+                                boxData = it.boxData
+                            )
+                        }
                     )
                 )
 
-                return@map it
             }
-            .debounce(100, TimeUnit.MILLISECONDS)
-            .doOnNext {
+            .doOnNext { guid ->
                 viewStateLiveData.postValue(
                     PalletScreenCreatePalletViewState(
-                        data = repository.getTotalData(it),
-                        progress = false
+                        data = repository.getTotalData(guid),
+                        progress = false,
+                        list = viewStateLiveData.value!!.list
                     )
                 )
             }
+
     }
 
-    fun loadData(guid:String){
+    fun loadData(guid: String) {
         publishSubject.onNext(guid)
     }
 }
