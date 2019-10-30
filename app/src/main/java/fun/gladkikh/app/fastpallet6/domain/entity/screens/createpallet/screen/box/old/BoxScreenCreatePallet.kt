@@ -1,8 +1,9 @@
-package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box
+package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.old
 
+import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
 import java.util.*
 
-data class BoxTotalInfoCreatePallet(
+data class BoxScreenCreatePallet(
     val boxCountBox: Int? = null,
     val boxWeight: Float? = null,
     val palTotalWeight: Float? = null,
@@ -20,5 +21,6 @@ data class BoxTotalInfoCreatePallet(
     val prodCoeff: Float? = null,
     val boxBarcode: String? = null,
     val boxGuid: String? = null,
-    val boxDate: Date?= null
+    val boxDate: Date?= null,
+    val docStatus:Status? = null
 )

@@ -18,8 +18,7 @@ fun <T>getStatusDoc(doc: T): Status?{
     }
 }
 
-fun <T>checkEditDoc(doc:T):Boolean{
-    val status = getStatusDoc(doc)
+fun checkEditDocByStatus(status:Status?):Boolean{
     return status in listOf(Status.LOADED, Status.NEW)
 }
 

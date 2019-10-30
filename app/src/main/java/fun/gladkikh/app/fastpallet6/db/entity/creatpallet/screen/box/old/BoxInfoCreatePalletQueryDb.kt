@@ -1,6 +1,6 @@
-package `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box
+package `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.old
 
-data class BoxTotalInfoCreatePalletQueryDb(
+data class BoxInfoCreatePalletQueryDb(
     val boxCountBox: Int?,
     val boxWeight: Float?,
     val palTotalWeight: Float?,
