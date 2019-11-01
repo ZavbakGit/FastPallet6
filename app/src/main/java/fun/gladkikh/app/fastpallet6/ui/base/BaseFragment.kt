@@ -28,6 +28,11 @@ abstract class BaseFragment : Fragment() {
         mainActivity = activity as MainActivity
         navController = mainActivity.navController
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         initSubscription()
     }
 

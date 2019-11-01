@@ -5,12 +5,13 @@ import `fun`.gladkikh.app.fastpallet6.domain.checkEditDocByStatus
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.box.BoxScreenCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
+import `fun`.gladkikh.app.fastpallet6.ui.base.Command.*
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.util.*
 
-class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
+class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) :
     BaseViewModel() {
 
     var guid: String? = null
@@ -23,8 +24,10 @@ class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
 
     fun getViewSate(): LiveData<BoxScreenCreatePalletViewState> = viewStateLiveData
 
+    private fun getViewStateData() = viewStateLiveData.value?.data
+
     init {
-        viewStateLiveData.value = BoxScreenCreatePalletViewState()
+        //viewStateLiveData.value = BoxScreenCreatePalletViewState()
         loadHandler = BoxScreenCreatePalletLoadDataHandler(
             viewStateLiveData = viewStateLiveData,
             compositeDisposable = disposables,
@@ -35,19 +38,22 @@ class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
             compositeDisposable = disposables,
             repository = repository,
             //Берем данные из нового бокса
-            beforeAddFun = {box, buffer->
+            beforeAddFun = { box, buffer ->
                 viewStateLiveData.postValue(
-                    getViewStateByBoxAndBuffer(box,buffer)
+                    getViewStateByBoxAndBuffer(box, buffer)
                 )
             },
             //После сохранения всего списка
-            afterSaveFun = {box, buffer->
+            afterSaveFun = { box, buffer ->
                 viewStateLiveData.postValue(
-                    getViewStateByBoxAndBuffer(box,buffer)
+                    getViewStateByBoxAndBuffer(box, buffer)
                 )
                 setGuid(box.guid)
             }
         )
+
+        //ToDo Без этого не срабатывает onNext
+        Thread.sleep(200)
 
     }
 
@@ -57,7 +63,7 @@ class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
     }
 
 
-    fun getViewStateByBoxAndBuffer(box: Box,buffer:Int): BoxScreenCreatePalletViewState {
+    fun getViewStateByBoxAndBuffer(box: Box, buffer: Int): BoxScreenCreatePalletViewState {
         val data = viewStateLiveData.value!!.data!!.copy(
             boxWeight = box.weight,
             boxBarcode = box.barcode,
@@ -74,9 +80,9 @@ class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
         )
     }
 
-    fun addBox(barcode: String) {
+    fun scanBarcode(barcode: String) {
 
-        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)){
+        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
             messageError.postValue("Нельзя менять документ с этим статусом!")
             return
         }
@@ -104,4 +110,98 @@ class BoxCreatePalletViewModel(repository: BoxScreenCreatePalletRepository) :
 
         addBoxHandler.addBox(box)
     }
+
+    fun dell() {
+        val box = repository.getBox(viewStateLiveData.value!!.data!!.boxGuid!!)
+        repository.deleteBox(box)
+        command.value = Close
+    }
+
+    fun executeDell() {
+        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
+            messageError.postValue("Нельзя менять документ с этим статусом!")
+            return
+        }
+
+        command.value = StartConfirmDialog("Удалить?")
+    }
+
+    fun editPlace(place: Int) {
+        getViewStateData()?.let {
+            val box = Box(
+                guid = it.boxGuid!!,
+                guidPallet = it.palGuid!!,
+                barcode = it.boxBarcode,
+                countBox = place,
+                weight = it.boxWeight,
+                data = Date()
+            )
+            repository.saveBox(box)
+            setGuid(it.boxGuid!!)
+        }
+    }
+
+    fun editWeight(weight: Float) {
+        getViewStateData()?.let {
+            val box = Box(
+                guid = it.boxGuid!!,
+                guidPallet = it.palGuid!!,
+                barcode = it.boxBarcode,
+                countBox = it.boxCountBox,
+                weight = weight,
+                data = Date()
+            )
+            repository.saveBox(box)
+            setGuid(it.boxGuid!!)
+        }
+    }
+
+    fun startEditPlace() {
+        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
+            messageError.postValue("Нельзя менять документ с этим статусом!")
+            return
+        }
+        getViewStateData()?.let {
+            command.value = StartEditNumberDialog(
+                title = "Мест",
+                number = it.boxCountBox
+            )
+        }
+    }
+
+    fun startEditWeight() {
+        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
+            messageError.postValue("Нельзя менять документ с этим статусом!")
+            return
+        }
+
+        getViewStateData()?.let {
+            command.value = StartEditDecimalDialog(
+                title = "Вес",
+                number = it.boxWeight
+            )
+        }
+    }
+
+    fun startAddBox() {
+        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
+            messageError.postValue("Нельзя менять документ с этим статусом!")
+            return
+        }
+
+        getViewStateData()?.let {
+            val box = Box(
+                guid = UUID.randomUUID().toString(),
+                guidPallet = viewStateLiveData.value?.data?.palGuid!!,
+                barcode = null,
+                countBox = 0,
+                weight = 0f,
+                data = Date()
+            )
+
+            repository.saveBox(box)
+            setGuid(box.guid)
+        }
+    }
+
 }

@@ -4,9 +4,9 @@ import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.
 import java.util.*
 
 data class PalletScreenCreatePalletViewState(
-    val data: PalletScreenCreatePalletData? = null,
-    val list:List<ItemBox> = listOf(),
-    val progress: Boolean = false
+    var data: PalletScreenCreatePalletData? = null,
+    var list:List<ItemBox> = listOf(),
+    var progress: Boolean = false
 )
 
 data class ItemBox(

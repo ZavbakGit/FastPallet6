@@ -26,30 +26,31 @@ class BoxScreenCreatePalletLoadDataHandler(
         )
     }
 
-    private fun getLoadDataFlowable(): Flowable<String> {
+    private fun getLoadDataFlowable(): Flowable<*> {
         return publishSubject.toFlowable(BackpressureStrategy.BUFFER)
-            .doOnNext {
-                viewStateLiveData.postValue(
-                    BoxScreenCreatePalletViewState(
-                        data = repository.getData(it),
-                        progress = true,
-                        sizeBuffer = viewStateLiveData.value!!.sizeBuffer
-                    )
+            .map {
+                val viewState = BoxScreenCreatePalletViewState(
+                    data = repository.getData(it),
+                    progress = true,
+                    sizeBuffer = viewStateLiveData.value?.sizeBuffer?:0
                 )
+                viewStateLiveData.postValue(viewState)
+                return@map viewState
             }
             .debounce(2000, TimeUnit.MILLISECONDS)
             .doOnNext {
-                viewStateLiveData.postValue(
-                    BoxScreenCreatePalletViewState(
-                        data = repository.getTotalData(it),
-                        progress = false,
-                        sizeBuffer = viewStateLiveData.value!!.sizeBuffer
-                    )
-                )
+
+                it.apply {
+                    data = repository.getTotalData(it.data!!.boxGuid!!)
+                    progress = false
+                    sizeBuffer = viewStateLiveData.value!!.sizeBuffer
+                }
+
+                viewStateLiveData.postValue(it)
             }
     }
 
-    fun loadData(guid:String){
+    fun loadData(guid: String) {
         publishSubject.onNext(guid)
     }
 }

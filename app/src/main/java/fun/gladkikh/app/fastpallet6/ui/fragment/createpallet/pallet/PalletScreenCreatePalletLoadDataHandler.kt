@@ -19,43 +19,42 @@ class PalletScreenCreatePalletLoadDataHandler(
 
     init {
         compositeDisposable.add(
-            getLoadDataFlowable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+        getLoadDataFlowable()
+            //.subscribeOn(Schedulers.io())
+            //.observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
         )
     }
 
-    private fun getLoadDataFlowable(): Flowable<String> {
+    private fun getLoadDataFlowable(): Flowable<*> {
         return publishSubject.toFlowable(BackpressureStrategy.BUFFER)
             //ToDo Непойму почему не переходит в другой поток
-            .delay(10, TimeUnit.MILLISECONDS)
-            .doOnNext { guid ->
-                viewStateLiveData.postValue(
-                    PalletScreenCreatePalletViewState(
-                        data = repository.getData(guid),
-                        progress = true,
-                        list = repository.getListItem(guid).map {
-                            ItemBox(
-                                boxGuid = it.boxGuid,
-                                boxWeight = it.boxWeight,
-                                boxCountBox = it.boxCountBox,
-                                boxBarcode = it.boxBarcode,
-                                boxData = it.boxData
-                            )
-                        }
-                    )
+           .delay(10, TimeUnit.MILLISECONDS)
+
+
+            .map { guid ->
+                val viewState = PalletScreenCreatePalletViewState(
+                    data = repository.getData(guid),
+                    progress = true,
+                    list = repository.getListItem(guid).map {
+                        ItemBox(
+                            boxGuid = it.boxGuid,
+                            boxWeight = it.boxWeight,
+                            boxCountBox = it.boxCountBox,
+                            boxBarcode = it.boxBarcode,
+                            boxData = it.boxData
+                        )
+                    }
                 )
 
+                viewStateLiveData.postValue(viewState)
+                return@map viewState
+
             }
-            .doOnNext { guid ->
-                viewStateLiveData.postValue(
-                    PalletScreenCreatePalletViewState(
-                        data = repository.getTotalData(guid),
-                        progress = false,
-                        list = viewStateLiveData.value!!.list
-                    )
-                )
+            .doOnNext { viewState ->
+                viewState.data = repository.getTotalData(viewState.data!!.palGuid!!)
+                viewState.progress = false
+                viewStateLiveData.postValue(viewState)
             }
 
     }

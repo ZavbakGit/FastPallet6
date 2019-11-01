@@ -1,6 +1,7 @@
 package `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.pallet
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.PalletScreenCreatePalletDao
+import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Pallet
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.ItemPalletScreenData
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.PalletScreenCreatePalletData
@@ -26,7 +27,7 @@ class PalletScreenCreatePalletRepository(
         }
     }
 
-    fun savePallet(pallet: Pallet){
-        repositoryUpdate.save(pallet)
+    fun saveBox(box: Box){
+        repositoryUpdate.save(box)
     }
 }

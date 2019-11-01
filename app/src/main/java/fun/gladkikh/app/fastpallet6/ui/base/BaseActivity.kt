@@ -12,9 +12,7 @@ abstract class BaseActivity :AppCompatActivity(){
     val isShowProgress = MutableLiveData<Boolean>()
     val barcodeLiveData = SingleLiveEvent<String>()
 
-    private val keyDownMutableLiveData = MutableLiveData<Int>()
-    val keyDownLiveData = MutableLiveData<Int>()
-
+    private val keyDownMutableLiveData = SingleLiveEvent<Int>()
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (isShowProgress.value != true){
@@ -23,7 +21,7 @@ abstract class BaseActivity :AppCompatActivity(){
         return super.onKeyDown(keyCode, event)
     }
 
-    fun getkeyDownLiveData():LiveData<Int> = keyDownLiveData
+    fun getKeyDownLiveData():LiveData<Int> = keyDownMutableLiveData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

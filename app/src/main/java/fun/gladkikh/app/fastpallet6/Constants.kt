@@ -16,10 +16,12 @@ object Constants {
     }
     val OS_VERSION by lazy { android.os.Build.VERSION.SDK_INT.toString() }
 
-    val KEY_MENU = 12 // 5
-    val KEY_DELL = 16 // 9
-    val KEY_UNLOAD = 11 // 4
-    val KEY_ADD = 8 // 1
-    val KEY_TEST = 7 // 0
+    val KEY_5 = 12 // 5
+    val KEY_9 = 16 // 9
+    val KEY_4 = 11 // 4
+    val KEY_1 = 8 // 1
+    val KEY_2 = 9 // 1
+    val KEY_3 = 10 // 1
+    val KEY_7 = 7 // 0
 }
 

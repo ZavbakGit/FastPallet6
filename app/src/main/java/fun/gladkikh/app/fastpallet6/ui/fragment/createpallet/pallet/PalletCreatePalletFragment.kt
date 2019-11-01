@@ -2,6 +2,7 @@ package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet
 
 import `fun`.gladkikh.app.fastpallet6.R
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
+import `fun`.gladkikh.app.fastpallet6.ui.base.Command
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletFragment
 import android.annotation.SuppressLint
@@ -25,32 +26,46 @@ class PalletCreatePalletFragment : BaseFragment() {
     override fun initSubscription() {
         super.initSubscription()
 
-        adapter = Adapter(activity as Context)
-        listView.adapter = adapter
-
         //Если добавляли, то возьмем из Из ViewModel нет из arguments
         val guid = viewModel.guid ?: arguments?.get(EXTRA_GUID) as String
-        viewModel.setGuid(guid)
+
+        adapter = Adapter(activity as Context)
+        listView.adapter = adapter
 
         viewModel.getViewSate().observe(viewLifecycleOwner, Observer {
             refreshScreen(it)
         })
 
+        viewModel.setGuid(guid)
+
         listView.setOnItemClickListener { _, _, i, _ ->
-            val bundle = Bundle()
-            bundle.putString(BoxCreatePalletFragment.EXTRA_GUID, adapter.list[i].boxGuid)
-            mainActivity.navController
-                .navigate(R.id.action_palletCreatePalletFragment_to_boxCreatePalletFragment, bundle)
+            adapter.list[i].boxGuid?.let { openBox(it) }
         }
 
         btAdd.setOnClickListener {
-            //viewModel.addBox("${(10..99).random()}123456789")
+            viewModel.addBox("${(10..99).random()}123456789")
         }
 
+        viewModel.getCommand().observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Command.OpenForm -> {
+                    openBox(it.data as String)
+                }
+            }
+        })
+
         mainActivity.barcodeLiveData.observe(viewLifecycleOwner, Observer {
-            //viewModel.addBox(it)
+            viewModel.addBox(it)
         })
     }
+
+    private fun openBox(guidBox: String) {
+        val bundle = Bundle()
+        bundle.putString(BoxCreatePalletFragment.EXTRA_GUID, guidBox)
+        mainActivity.navController
+            .navigate(R.id.action_palletCreatePalletFragment_to_boxCreatePalletFragment, bundle)
+    }
+
 
     @SuppressLint("SetTextI18n")
     fun refreshScreen(viewState: PalletScreenCreatePalletViewState) {

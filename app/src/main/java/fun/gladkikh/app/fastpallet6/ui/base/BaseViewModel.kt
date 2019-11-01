@@ -1,7 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6.ui.base
 
 
-import `fun`.gladkikh.fastpallet5.ui.fragment.common.Command
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
