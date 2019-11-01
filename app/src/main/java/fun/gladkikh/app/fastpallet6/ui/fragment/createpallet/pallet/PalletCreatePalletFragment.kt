@@ -1,9 +1,12 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet
 
+import `fun`.gladkikh.app.fastpallet6.Constants.KEY_3
+import `fun`.gladkikh.app.fastpallet6.Constants.KEY_9
 import `fun`.gladkikh.app.fastpallet6.R
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import `fun`.gladkikh.app.fastpallet6.ui.base.Command
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
+import `fun`.gladkikh.app.fastpallet6.ui.base.startConfirmDialog
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletFragment
 import android.annotation.SuppressLint
 import android.content.Context
@@ -43,7 +46,7 @@ class PalletCreatePalletFragment : BaseFragment() {
         }
 
         btAdd.setOnClickListener {
-            viewModel.addBox("${(10..99).random()}123456789")
+            viewModel.scanBarcode("${(10..99).random()}123456789")
         }
 
         viewModel.getCommand().observe(viewLifecycleOwner, Observer {
@@ -51,11 +54,33 @@ class PalletCreatePalletFragment : BaseFragment() {
                 is Command.OpenForm -> {
                     openBox(it.data as String)
                 }
+                is Command.StartConfirmDialog -> {
+                    startConfirmDialog(activity!!, "Удалить запись?") {
+                        viewModel.dellBox((it.data as Int))
+                    }
+                }
             }
         })
 
         mainActivity.barcodeLiveData.observe(viewLifecycleOwner, Observer {
-            viewModel.addBox(it)
+            viewModel.scanBarcode(it)
+        })
+
+        mainActivity.getKeyDownLiveData().observe(viewLifecycleOwner, Observer {
+            when (it) {
+                KEY_3 -> {
+                    viewModel.startAddBox()
+                }
+                KEY_9 -> {
+                    listView.selectedItemPosition.takeUnless { position ->
+                        position == -1
+                    }?.run {
+                        viewModel.startDell(this)
+                    }
+
+                }
+
+            }
         })
     }
 
@@ -86,7 +111,8 @@ class PalletCreatePalletFragment : BaseFragment() {
                 "Вес: ${viewState.data?.totalPalWeight} "
 
 
-        tvInfo.text = "Прогресс: ${viewState.progress}"
+        tvInfo.text = "Прогресс: ${viewState.progress} \n" +
+                "Добавить(3) Удалить (9)"
 
         adapter.list = viewState.list
     }

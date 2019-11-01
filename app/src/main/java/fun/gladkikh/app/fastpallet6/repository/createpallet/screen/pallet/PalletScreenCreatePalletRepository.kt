@@ -6,6 +6,7 @@ import `fun`.gladkikh.app.fastpallet6.domain.entity.Pallet
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.ItemPalletScreenData
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.PalletScreenCreatePalletData
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.screen.pallet.toObject
+import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toObject
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate
 
 class PalletScreenCreatePalletRepository(
@@ -26,6 +27,9 @@ class PalletScreenCreatePalletRepository(
             it.toObject()
         }
     }
+
+    fun getBox(guid:String) = palletScreenCreatePalletDao.getBox(guid).toObject()
+    fun deleteBox(box:Box) = repositoryUpdate.delete(box)
 
     fun saveBox(box: Box){
         repositoryUpdate.save(box)

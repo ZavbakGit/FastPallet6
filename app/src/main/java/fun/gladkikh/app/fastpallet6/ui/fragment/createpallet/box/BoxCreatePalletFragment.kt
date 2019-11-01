@@ -57,12 +57,11 @@ class BoxCreatePalletFragment : BaseFragment() {
                     viewModel.startAddBox()
                 }
                 KEY_9 -> {
-                    viewModel.executeDell()
+                    viewModel.startDell()
                 }
 
             }
         })
-
 
         viewModel.getCommand().observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -99,7 +98,6 @@ class BoxCreatePalletFragment : BaseFragment() {
 
             }
         })
-
     }
 
     @SuppressLint("SetTextI18n")

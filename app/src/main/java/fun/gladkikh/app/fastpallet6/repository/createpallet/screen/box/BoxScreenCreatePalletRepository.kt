@@ -26,7 +26,4 @@ class BoxScreenCreatePalletRepository (
     fun getBox(guid:String) = boxScreenCreatePalletDao.getBox(guid).toObject()
     fun deleteBox(box:Box) = repositoryUpdate.delete(box)
     fun saveBox(box:Box) = repositoryUpdate.save(box)
-
-
-
 }

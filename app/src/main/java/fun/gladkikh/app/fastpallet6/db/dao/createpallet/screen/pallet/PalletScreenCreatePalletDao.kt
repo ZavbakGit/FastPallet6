@@ -1,5 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet
 
+import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.BoxCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.ItemPalletScreenDataDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.PalletScreenDataDb
 import androidx.room.Dao
@@ -171,4 +172,7 @@ interface PalletScreenCreatePalletDao {
             "Box.data AS boxData " +
             "FROM  BoxCreatePalletDb Box WHERE Box.guidPallet =:guidBox ")
     fun getListItem(guidBox:String):List<ItemPalletScreenDataDb>
+
+    @Query("SELECT * FROM BoxCreatePalletDb WHERE guid =:guidBox ")
+    fun getBox(guidBox:String): BoxCreatePalletDb
 }

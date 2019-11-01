@@ -11,7 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.util.*
 
-class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) :
+class BoxCreatePalletViewModel(private val repository: BoxScreenCreatePalletRepository) :
     BaseViewModel() {
 
     var guid: String? = null
@@ -27,7 +27,6 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
     private fun getViewStateData() = viewStateLiveData.value?.data
 
     init {
-        //viewStateLiveData.value = BoxScreenCreatePalletViewState()
         loadHandler = BoxScreenCreatePalletLoadDataHandler(
             viewStateLiveData = viewStateLiveData,
             compositeDisposable = disposables,
@@ -51,10 +50,6 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
                 setGuid(box.guid)
             }
         )
-
-        //ToDo Без этого не срабатывает onNext
-        Thread.sleep(200)
-
     }
 
     fun setGuid(guidParam: String) {
@@ -62,9 +57,8 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
         this.guid = guidParam
     }
 
-
-    fun getViewStateByBoxAndBuffer(box: Box, buffer: Int): BoxScreenCreatePalletViewState {
-        val data = viewStateLiveData.value!!.data!!.copy(
+    private fun getViewStateByBoxAndBuffer(box: Box, buffer: Int): BoxScreenCreatePalletViewState {
+        val data = getViewStateData()!!.copy(
             boxWeight = box.weight,
             boxBarcode = box.barcode,
             boxData = box.data,
@@ -81,17 +75,16 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
     }
 
     fun scanBarcode(barcode: String) {
-
-        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
+        if (!checkEditDocByStatus(getViewStateData()?.docStatus)) {
             messageError.postValue("Нельзя менять документ с этим статусом!")
             return
         }
 
         val weight = getWeightByBarcode(
             barcode = barcode,
-            start = viewStateLiveData.value?.data?.prodWeightStartProduct ?: 0,
-            finish = viewStateLiveData.value?.data?.prodWeightEndProduct ?: 0,
-            coff = viewStateLiveData.value?.data?.prodWeightCoffProduct ?: 0f
+            start = getViewStateData()!!.prodWeightStartProduct ?: 0,
+            finish = getViewStateData()!!.prodWeightEndProduct ?: 0,
+            coff = getViewStateData()!!.prodWeightCoffProduct ?: 0f
         )
 
         if (weight == 0f) {
@@ -101,7 +94,7 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
 
         val box = Box(
             guid = UUID.randomUUID().toString(),
-            guidPallet = viewStateLiveData.value?.data?.palGuid!!,
+            guidPallet = getViewStateData()!!.palGuid!!,
             barcode = barcode,
             countBox = 1,
             weight = weight,
@@ -112,13 +105,13 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
     }
 
     fun dell() {
-        val box = repository.getBox(viewStateLiveData.value!!.data!!.boxGuid!!)
+        val box = repository.getBox(getViewStateData()!!.boxGuid!!)
         repository.deleteBox(box)
         command.value = Close
     }
 
-    fun executeDell() {
-        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
+    fun startDell() {
+        if (!checkEditDocByStatus(getViewStateData()!!.docStatus)) {
             messageError.postValue("Нельзя менять документ с этим статусом!")
             return
         }
@@ -137,7 +130,7 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
                 data = Date()
             )
             repository.saveBox(box)
-            setGuid(it.boxGuid!!)
+            setGuid(it.boxGuid)
         }
     }
 
@@ -152,12 +145,12 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
                 data = Date()
             )
             repository.saveBox(box)
-            setGuid(it.boxGuid!!)
+            setGuid(it.boxGuid)
         }
     }
 
     fun startEditPlace() {
-        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
+        if (!checkEditDocByStatus(getViewStateData()!!.docStatus)) {
             messageError.postValue("Нельзя менять документ с этим статусом!")
             return
         }
@@ -170,7 +163,7 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
     }
 
     fun startEditWeight() {
-        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
+        if (!checkEditDocByStatus(getViewStateData()!!.docStatus)) {
             messageError.postValue("Нельзя менять документ с этим статусом!")
             return
         }
@@ -184,7 +177,7 @@ class BoxCreatePalletViewModel(val repository: BoxScreenCreatePalletRepository) 
     }
 
     fun startAddBox() {
-        if (!checkEditDocByStatus(viewStateLiveData.value!!.data!!.docStatus)) {
+        if (!checkEditDocByStatus(getViewStateData()!!.docStatus)) {
             messageError.postValue("Нельзя менять документ с этим статусом!")
             return
         }

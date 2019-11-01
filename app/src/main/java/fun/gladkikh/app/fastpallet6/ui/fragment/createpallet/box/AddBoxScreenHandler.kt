@@ -6,7 +6,6 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
@@ -23,7 +22,6 @@ class AddBoxScreenHandler(
     init {
         compositeDisposable.add(
             getFlowableBox()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         )
@@ -31,7 +29,7 @@ class AddBoxScreenHandler(
 
     private fun getFlowableBox(): Flowable<Box> {
         return publishSubject.toFlowable(BackpressureStrategy.BUFFER)
-            .debounce(2000, TimeUnit.MILLISECONDS)
+            .debounce(1000, TimeUnit.MILLISECONDS)
             .map {
                 val list = bufferBoxList.map {
                     it.copy()

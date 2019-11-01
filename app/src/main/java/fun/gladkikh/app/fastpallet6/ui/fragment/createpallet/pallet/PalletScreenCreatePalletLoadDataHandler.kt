@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
 
 class PalletScreenCreatePalletLoadDataHandler(
     private val viewStateLiveData: MutableLiveData<PalletScreenCreatePalletViewState>,
@@ -20,18 +19,13 @@ class PalletScreenCreatePalletLoadDataHandler(
     init {
         compositeDisposable.add(
         getLoadDataFlowable()
-            //.subscribeOn(Schedulers.io())
-            //.observeOn(AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
         )
     }
 
     private fun getLoadDataFlowable(): Flowable<*> {
         return publishSubject.toFlowable(BackpressureStrategy.BUFFER)
-            //ToDo Непойму почему не переходит в другой поток
-           .delay(10, TimeUnit.MILLISECONDS)
-
-
             .map { guid ->
                 val viewState = PalletScreenCreatePalletViewState(
                     data = repository.getData(guid),
@@ -49,8 +43,8 @@ class PalletScreenCreatePalletLoadDataHandler(
 
                 viewStateLiveData.postValue(viewState)
                 return@map viewState
-
             }
+            .observeOn(Schedulers.io())
             .doOnNext { viewState ->
                 viewState.data = repository.getTotalData(viewState.data!!.palGuid!!)
                 viewState.progress = false

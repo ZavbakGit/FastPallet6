@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
 
 class BoxScreenCreatePalletLoadDataHandler(
     private val viewStateLiveData: MutableLiveData<BoxScreenCreatePalletViewState>,
@@ -20,7 +19,6 @@ class BoxScreenCreatePalletLoadDataHandler(
     init {
         compositeDisposable.add(
             getLoadDataFlowable()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         )
@@ -37,15 +35,13 @@ class BoxScreenCreatePalletLoadDataHandler(
                 viewStateLiveData.postValue(viewState)
                 return@map viewState
             }
-            .debounce(2000, TimeUnit.MILLISECONDS)
+            .observeOn(Schedulers.io())
             .doOnNext {
-
                 it.apply {
                     data = repository.getTotalData(it.data!!.boxGuid!!)
                     progress = false
-                    sizeBuffer = viewStateLiveData.value!!.sizeBuffer
+                    sizeBuffer = viewStateLiveData.value?.sizeBuffer?:0
                 }
-
                 viewStateLiveData.postValue(it)
             }
     }

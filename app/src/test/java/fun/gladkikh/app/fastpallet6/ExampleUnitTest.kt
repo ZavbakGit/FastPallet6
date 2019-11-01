@@ -12,6 +12,17 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
+        val str:String? = null
+
+      val k =   str.also{
+            println("Null")
+        }.let{
+            it + "ljhjk"
+        }
+
+        prinln("111111" + k)
+
+
         assertEquals(4, 2 + 2)
     }
 
