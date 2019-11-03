@@ -1,0 +1,36 @@
+package `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.product
+
+data class ProductScreenDataDb(
+    val docGuid:String?,
+    val docNumber:String?,
+    val docDate:Long?,
+    val docStatus:Int?,
+    val docGuidServer:String?,
+    val docChanged:Long?,
+    val docIsWasLoadedLastTime:Boolean?,
+    val docDescription:String?,
+    val docBarcode:String?,
+    val prodGuid:String?,
+    val prodGuidDoc:String?,
+    val prodNumber:String?,
+    val prodBarcode:String?,
+    val prodGuidProduct:String?,
+    val prodNameProduct:String?,
+    val prodCodeProduct:String?,
+    val prodEd:String?,
+    val prodWeightBarcode:String?,
+    val prodWeightStartProduct:Int?,
+    val prodWeightEndProduct:Int?,
+    val prodWeightCoffProduct:Float?,
+    val prodEdCoff:Float?,
+    val prodCount:Int?,
+    val prodCountBox:Int?,
+    val prodCountPallet:Int?,
+    val prodDataChanged:Long?,
+    val prodIsWasLoadedLastTime:Boolean?,
+
+    val totalProdCountBox:Int?,
+    val totalProdRow:Int?,
+    val totalProdWeight:Float?,
+    val totalProdCountPallet:Int?
+)

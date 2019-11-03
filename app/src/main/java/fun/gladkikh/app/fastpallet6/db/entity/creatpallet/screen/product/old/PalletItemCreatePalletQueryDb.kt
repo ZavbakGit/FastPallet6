@@ -1,4 +1,4 @@
-package `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.product
+package `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.product.old
 
 data class PalletItemCreatePalletQueryDb(
     val palNumber:String?,
