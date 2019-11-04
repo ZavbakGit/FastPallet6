@@ -5,7 +5,6 @@ import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.doc.Pro
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletFragment
-import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.old.ProductCreatePalletFragment1
 import android.content.Context
 import android.os.Bundle
 import android.view.View

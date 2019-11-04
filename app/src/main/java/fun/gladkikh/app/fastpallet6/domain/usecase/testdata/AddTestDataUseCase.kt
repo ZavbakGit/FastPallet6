@@ -86,7 +86,8 @@ class AddTestDataUseCase(private val createPalletRepositoryUpdate: CreatePalletR
                 guidProduct = guidProduct,
                 number = guidProduct +"_" + it,
                 barcode = "65465546546548",
-                sclad = "Основной"
+                sclad = "Основной",
+                dataChanged = Date()
                 //boxes = getListBox(guidProduct + it)
             )
         }

@@ -1,17 +1,14 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product
 
-import `fun`.gladkikh.app.fastpallet6.Constants.KEY_3
 import `fun`.gladkikh.app.fastpallet6.Constants.KEY_9
 import `fun`.gladkikh.app.fastpallet6.R
+import `fun`.gladkikh.app.fastpallet6.common.toSimpleDateTime
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.product.ItemProductScreenCreatePalletData
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import `fun`.gladkikh.app.fastpallet6.ui.base.Command
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
 import `fun`.gladkikh.app.fastpallet6.ui.base.startConfirmDialog
-import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box.BoxCreatePalletFragment
-import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.ItemBox
-import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.PalletCreatePalletViewModel
-import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.PalletScreenCreatePalletViewState
+import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.pallet.PalletCreatePalletFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -82,9 +79,9 @@ class ProductCreatePalletFragment : BaseFragment() {
         })
     }
 
-    private fun openPallet(guidBox: String) {
+    private fun openPallet(guidPallet: String) {
         val bundle = Bundle()
-        bundle.putString(BoxCreatePalletFragment.EXTRA_GUID, guidBox)
+        bundle.putString(PalletCreatePalletFragment.EXTRA_GUID, guidPallet)
         mainActivity.navController
             .navigate(R.id.action_productCreatePalletFragment_to_palletCreatePalletFragment, bundle)
     }
@@ -106,7 +103,7 @@ class ProductCreatePalletFragment : BaseFragment() {
 
 
         tvInfo.text = "Прогресс: ${viewState.progress} \n" +
-                "Добавить(3) Удалить (9)"
+                "Удалить (9)"
 
         adapter.list = viewState.list
     }
@@ -114,7 +111,7 @@ class ProductCreatePalletFragment : BaseFragment() {
     private class Adapter(mContext: Context) : MyBaseAdapter<ItemProductScreenCreatePalletData>(mContext) {
         override fun bindView(item: ItemProductScreenCreatePalletData, holder: Any) {
             holder as ViewHolder
-            holder.tvInfo.text = "${item.palNumber} ${item.palDataChanged}"
+            holder.tvInfo.text = "Паллета: ${item.palNumber}   Дата: ${item.palDataChanged?.toSimpleDateTime()}"
             holder.tvInfo2.text = "Мест: ${item.totalPalCountBox} Вес: ${item.totalPalWeight}"
         }
 
