@@ -2,7 +2,7 @@ package `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.box
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.BoxScreenCreatePalletDao
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePalletData
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.box.BoxScreenCreatePalletData
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.screen.box.toObject
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toObject
 

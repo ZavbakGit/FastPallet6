@@ -2,7 +2,7 @@ package `fun`.gladkikh.app.fastpallet6.mapping.createpallet.screen.box
 
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.box.BoxScreenDataDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePalletData
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.box.BoxScreenCreatePalletData
 import java.util.*
 
 fun BoxScreenDataDb.toObject(): BoxScreenCreatePalletData {

@@ -84,7 +84,7 @@ class AddTestDataUseCase(private val createPalletRepositoryUpdate: CreatePalletR
             Pallet(
                 guid = guidProduct +"_" + it,
                 guidProduct = guidProduct,
-                number = it.toString(),
+                number = guidProduct +"_" + it,
                 barcode = "65465546546548",
                 sclad = "Основной"
                 //boxes = getListBox(guidProduct + it)

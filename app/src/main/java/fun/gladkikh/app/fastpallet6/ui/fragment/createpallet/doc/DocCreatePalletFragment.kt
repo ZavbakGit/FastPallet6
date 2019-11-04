@@ -1,10 +1,11 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc
 
 import `fun`.gladkikh.app.fastpallet6.R
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.doc.ProductItemCreatePallet
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.doc.ProductItemCreatePallet
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletFragment
+import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.old.ProductCreatePalletFragment1
 import android.content.Context
 import android.os.Bundle
 import android.view.View

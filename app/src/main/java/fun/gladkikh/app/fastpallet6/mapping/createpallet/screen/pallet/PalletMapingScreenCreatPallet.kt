@@ -3,8 +3,8 @@ package `fun`.gladkikh.app.fastpallet6.mapping.createpallet.screen.pallet
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.ItemPalletScreenDataDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.screen.pallet.PalletScreenDataDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.ItemPalletScreenData
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.PalletScreenCreatePalletData
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.pallet.ItemPalletScreenData
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.pallet.PalletScreenCreatePalletData
 import java.util.*
 
 fun PalletScreenDataDb.toObject(): PalletScreenCreatePalletData {

@@ -2,9 +2,8 @@ package `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.pallet
 
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.PalletScreenCreatePalletDao
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Box
-import `fun`.gladkikh.app.fastpallet6.domain.entity.Pallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.ItemPalletScreenData
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.pallet.PalletScreenCreatePalletData
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.pallet.ItemPalletScreenData
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.pallet.PalletScreenCreatePalletData
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.screen.pallet.toObject
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toObject
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate

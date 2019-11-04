@@ -1,17 +1,17 @@
-package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product
+package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.old
 
+import `fun`.gladkikh.app.fastpallet6.common.getNumberDocByBarCode
+import `fun`.gladkikh.app.fastpallet6.common.isPallet
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Pallet
 import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.ValidationResult
-import `fun`.gladkikh.app.fastpallet6.domain.getNumberDocByBarCode
-import `fun`.gladkikh.app.fastpallet6.domain.isPallet
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.ProductCreatePalletRepository
 import androidx.lifecycle.MutableLiveData
 import java.util.*
 
-class ProductCreatPalletDelegate(
-    private val viewModel: ProductCreatePalletViewModel,
+class ProductCreatPalletDelegate1(
+    private val viewModel: ProductCreatePalletViewModel1,
     private val productCreatePalletRepository: ProductCreatePalletRepository,
-    private val viewStateLiveData: MutableLiveData<ProductCreatePalletViewState>
+    private val viewStateLiveData: MutableLiveData<ProductCreatePalletViewState1>
 ) {
 
     fun addPallet(barcode: String) {

@@ -1,15 +1,13 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc
 
 import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.doc.ProductItemCreatePallet
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.doc.ProductItemCreatePallet
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.DocCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import io.reactivex.BackpressureStrategy
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 

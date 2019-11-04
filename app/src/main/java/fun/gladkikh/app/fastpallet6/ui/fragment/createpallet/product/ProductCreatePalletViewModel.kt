@@ -1,49 +1,91 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product
 
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.product.PalletItemCreatePallet
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.ProductCreatePalletRepository
+import `fun`.gladkikh.app.fastpallet6.common.getNumberDocByBarCode
+import `fun`.gladkikh.app.fastpallet6.common.isPallet
+import `fun`.gladkikh.app.fastpallet6.domain.checkEditDocByStatus
+import `fun`.gladkikh.app.fastpallet6.domain.entity.Pallet
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.product.ProductScreenCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
+import `fun`.gladkikh.app.fastpallet6.ui.base.Command
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import java.util.*
 
-class ProductCreatePalletViewModel(private val productCreatePalletRepository: ProductCreatePalletRepository) :
+class ProductCreatePalletViewModel(private val repository: ProductScreenCreatePalletRepository) :
     BaseViewModel() {
-    private val viewStateLiveData = MutableLiveData<ProductCreatePalletViewState>()
-    var listLiveData: LiveData<List<PalletItemCreatePallet>>? = null
 
-    private val businessDelegate = ProductCreatPalletDelegate(
-        viewModel = this,
-        productCreatePalletRepository = productCreatePalletRepository,
-        viewStateLiveData = viewStateLiveData
-    )
+    var guid: String? = null
+        private set
 
-    private val listObserver = Observer<List<PalletItemCreatePallet>> {
-        viewStateLiveData.value =
-            ProductCreatePalletViewState(
-                list = it
-            )
-    }
+    private var viewStateLiveData = MutableLiveData<ProductScreenCreatePalletViewState>()
+
+    private val loadHandler: ProductScreenCreatePalletLoadDataHandler
+
+    fun getViewSate(): LiveData<ProductScreenCreatePalletViewState> = viewStateLiveData
 
     init {
-        viewStateLiveData.value = ProductCreatePalletViewState()
+        loadHandler = ProductScreenCreatePalletLoadDataHandler(
+            viewStateLiveData = viewStateLiveData,
+            compositeDisposable = disposables,
+            repository = repository
+        )
     }
 
-    fun getViewSate(): LiveData<ProductCreatePalletViewState> = viewStateLiveData
+    private fun getViewStateData() = viewStateLiveData.value?.data
 
-    fun addPallet(barcode:String){
-        businessDelegate.addPallet(barcode)
+    fun setGuid(guidParam: String) {
+        loadHandler.loadData(guidParam)
+        this.guid = guidParam
     }
 
-    fun setGuid(guid: String) {
-        listLiveData = productCreatePalletRepository.getListPalletItemCreatePalletLiveData(guid)
-        listLiveData?.observeForever(listObserver)
+
+
+    fun scanBarcode(barcode: String) {
+        if (!checkEditDocByStatus(getViewStateData()?.docStatus)){
+            messageError.postValue("Нельзя менять документ с этим статусом!")
+            return
+        }
+
+        if (!isPallet(barcode)){
+            messageError.postValue("Это не паллета!")
+            return
+        }
+
+        val number = getNumberDocByBarCode(barcode)
+
+        if (repository.getPalletByNumber(number)!= null){
+            messageError.postValue("Паллета уже используется!")
+            return
+        }
+
+        val pallet = Pallet(
+            guid = UUID.randomUUID().toString(),
+            guidProduct = getViewStateData()!!.prodGuid!!,
+            number = getNumberDocByBarCode(barcode),
+            barcode = barcode,
+            dataChanged = Date()
+        )
+
+        repository.savePallet(pallet)
+        setGuid(getViewStateData()!!.prodGuid!!)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        listLiveData?.removeObserver(listObserver)
+    fun startDell(position: Int) {
+        if (!checkEditDocByStatus(getViewStateData()!!.docStatus)) {
+            messageError.postValue("Нельзя менять документ с этим статусом!")
+            return
+        }
+
+        command.value = Command.StartConfirmDialog(message ="Удалить?", data = position)
     }
 
+
+
+    fun dellPallet(position: Int) {
+        val guid = viewStateLiveData.value!!.list[position].palGuid
+        val pallet = repository.getPallet(guid!!)
+        repository.deletePallet(pallet)
+        setGuid(getViewStateData()!!.prodGuid!!)
+    }
 
 }

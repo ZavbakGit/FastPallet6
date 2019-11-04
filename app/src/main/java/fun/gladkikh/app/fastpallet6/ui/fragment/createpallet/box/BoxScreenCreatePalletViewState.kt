@@ -1,6 +1,6 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.box
 
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box.BoxScreenCreatePalletData
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.box.BoxScreenCreatePalletData
 
 
 data class BoxScreenCreatePalletViewState(

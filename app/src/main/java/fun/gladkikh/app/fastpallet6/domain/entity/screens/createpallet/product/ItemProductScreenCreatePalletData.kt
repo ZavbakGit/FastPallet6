@@ -1,9 +1,9 @@
-package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.box
+package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.product
 
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
 import java.util.*
 
-data class BoxScreenCreatePalletData(
+data class ItemProductScreenCreatePalletData(
     val docGuid:String?,
     val docNumber:String?,
     val docDate:Date?,
@@ -41,11 +41,6 @@ data class BoxScreenCreatePalletData(
     val palNameProduct:String?,
     val palState:String?,
     val palSclad:String?,
-    val boxBarcode:String?,
-    val boxWeight:Float?,
-    val boxCountBox:Int?,
-    val boxData:Date?,
-    val boxGuid:String?,
 
     val totalProdCountBox:Int?,
     val totalProdRow:Int?,

@@ -1,4 +1,4 @@
-package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.screen.doc
+package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.doc
 
 data class ProductItemCreatePallet(val guid: String,
                                    val name: String?,
