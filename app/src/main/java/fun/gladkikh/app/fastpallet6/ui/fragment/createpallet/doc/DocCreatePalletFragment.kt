@@ -1,20 +1,22 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc
 
 import `fun`.gladkikh.app.fastpallet6.R
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.doc.ProductItemCreatePallet
+import `fun`.gladkikh.app.fastpallet6.domain.entity.Status
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.doc.ItemDocScreenCreatePalletData
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseFragment
 import `fun`.gladkikh.app.fastpallet6.ui.base.MyBaseAdapter
 import `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.product.ProductCreatePalletFragment
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.doc_create_pallet_frag.*
+import kotlinx.android.synthetic.main.screen_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DocCreatePalletFragment :BaseFragment(){
-    override val layoutRes = R.layout.doc_create_pallet_frag
+class DocCreatePalletFragment : BaseFragment() {
+    override val layoutRes = R.layout.screen_fragment
     override val viewModel: DocCreatePalletViewModel by viewModel()
     private lateinit var adapter: Adapter
 
@@ -24,54 +26,63 @@ class DocCreatePalletFragment :BaseFragment(){
 
     override fun initSubscription() {
         super.initSubscription()
-        viewModel.setGuid(arguments?.get(EXTRA_GUID) as String)
 
-        viewModel.getEntityViewSate().observe(viewLifecycleOwner, Observer {
-            tvInfo.text = it.entity?.description?:""
-        })
+        //Если добавляли, то возьмем из Из ViewModel нет из arguments
+        val guid = viewModel.guid ?: arguments?.get(EXTRA_GUID) as String
 
-        viewModel.showProgressBarFrag.observe(viewLifecycleOwner, Observer {
-            if (it){
-                smoothProgressBar.visibility = View.VISIBLE
-            }else{
-                smoothProgressBar.visibility = View.GONE
-            }
-        })
-
-
-        adapter =
-            Adapter(activity as Context)
+        adapter = Adapter(activity as Context)
         listView.adapter = adapter
 
-        viewModel.getListViewSate().observe(viewLifecycleOwner, Observer {
-            adapter.list = it.list
+        viewModel.getViewSate().observe(viewLifecycleOwner, Observer {
+            refreshScreen(it)
         })
 
+        viewModel.setGuid(guid)
+
         listView.setOnItemClickListener { _, _, i, _ ->
-            val bundle = Bundle()
-            bundle.putString(ProductCreatePalletFragment.EXTRA_GUID, adapter.list[i].guid)
-            mainActivity.navController
-                .navigate(R.id.action_docCreatePalletFragment_to_productCreatePalletFragment, bundle)
+            adapter.list[i].prodGuid?.let { openProduct(it) }
         }
 
     }
 
-    private class Adapter(mContext: Context) : MyBaseAdapter<ProductItemCreatePallet>(mContext) {
-        override fun bindView(item: ProductItemCreatePallet, holder: Any) {
+    private fun openProduct(guidPallet: String) {
+        val bundle = Bundle()
+        bundle.putString(ProductCreatePalletFragment.EXTRA_GUID, guidPallet)
+        mainActivity.navController
+            .navigate(R.id.action_docCreatePalletFragment_to_productCreatePalletFragment, bundle)
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    fun refreshScreen(viewState: DocScreenCreatePalletViewState) {
+
+        tvDoc.text = "Документ: " + viewState.data?.description
+
+        tvProduct.text = "Статус: ${Status.getStatusById(viewState.data?.status!!)}"
+
+        tvInfo.text = "Прогресс: ${viewState.progress} \n"
+
+        adapter.list = viewState.list
+    }
+
+    private class Adapter(mContext: Context) :
+        MyBaseAdapter<ItemDocScreenCreatePalletData>(mContext) {
+        override fun bindView(item: ItemDocScreenCreatePalletData, holder: Any) {
             holder as ViewHolder
-            holder.tvInfo.text = item.name
-            holder.tvLeft.text = "${item.palCount} п ${item.boxCount} м ${item.boxWeight} к"
-            holder.tvRight.text = ""
+            holder.tvInfo.text = "${item.prodNameProduct}"
+            holder.tvInfo2.text = "Мест: ${item.totalProdCountBox} Вес: ${item.totalProdWeight}"
         }
 
-        override fun getLayout(): Int = R.layout.base_item
+        override fun getLayout(): Int = R.layout.item_screen
         override fun createViewHolder(view: View): Any =
-            ViewHolder(view)
+            ViewHolder(
+                view
+            )
     }
 
     private class ViewHolder(view: View) {
         var tvInfo: TextView = view.findViewById(R.id.tvInfo)
-        var tvLeft: TextView = view.findViewById(R.id.tvLeft)
-        var tvRight: TextView = view.findViewById(R.id.tvRight)
+        var tvInfo2: TextView = view.findViewById(R.id.tvInfo2)
     }
+
 }

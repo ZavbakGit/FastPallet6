@@ -1,96 +1,34 @@
 package `fun`.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc
 
-import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.createpallet.doc.ProductItemCreatePallet
-import `fun`.gladkikh.app.fastpallet6.repository.createpallet.DocCreatePalletRepository
+import `fun`.gladkikh.app.fastpallet6.repository.createpallet.screen.doc.DocScreenCreatePalletRepository
 import `fun`.gladkikh.app.fastpallet6.ui.base.BaseViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import io.reactivex.BackpressureStrategy
-import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
 
-class DocCreatePalletViewModel(private val docCreatePalletRepository: DocCreatePalletRepository) :
+class DocCreatePalletViewModel(private val repository: DocScreenCreatePalletRepository) :
     BaseViewModel() {
 
-    private val listViewStateLiveData = MutableLiveData<DocListCreatePalletViewState>()
-    private val entityViewStateLiveData = MutableLiveData<DocEntityCreatePalletViewState>()
+    var guid: String? = null
+        private set
 
-    private var listLiveData: LiveData<List<ProductItemCreatePallet>>? = null
-    private var entityLiveData: LiveData<CreatePallet>? = null
+    private var viewStateLiveData = MutableLiveData<DocScreenCreatePalletViewState>()
 
-    private val guidPublishSubject = PublishSubject.create<String>()
-    private val listObserver = Observer<List<ProductItemCreatePallet>> {
-        listViewStateLiveData.value =
-            DocListCreatePalletViewState(
-                list = it
-            )
-    }
+    private val loadHandler: DocScreenCreatePalletLoadDataHandler
 
-    var showProgressBarFrag = MutableLiveData<Boolean>()
-
-    private val entityObserver = Observer<CreatePallet> {
-        entityViewStateLiveData.value = DocEntityCreatePalletViewState(
-            entity = it
-        )
-    }
+    fun getViewSate(): LiveData<DocScreenCreatePalletViewState> = viewStateLiveData
 
     init {
-        showProgressBarFrag.postValue(false)
-
-        disposables.add(
-            guidPublishSubject.toFlowable(BackpressureStrategy.BUFFER)
-                .doOnNext {
-                    showProgressBarFrag.postValue(true)
-                }
-                .debounce(30, TimeUnit.MILLISECONDS)
-                .map {
-                    docCreatePalletRepository.getListProductCreatePallet(it)
-                }
-                .doOnNext {
-                    listViewStateLiveData.postValue(
-                        DocListCreatePalletViewState(
-                            list = it
-                        )
-                    )
-                }
-                .subscribe {
-                    showProgressBarFrag.postValue(false)
-                }
+        loadHandler = DocScreenCreatePalletLoadDataHandler(
+            viewStateLiveData = viewStateLiveData,
+            compositeDisposable = disposables,
+            repository = repository
         )
-
-
-        listViewStateLiveData.value =
-            DocListCreatePalletViewState()
-
-        entityViewStateLiveData.value = DocEntityCreatePalletViewState()
-
-
     }
 
-    fun getListViewSate(): LiveData<DocListCreatePalletViewState> = listViewStateLiveData
-    fun getEntityViewSate(): LiveData<DocEntityCreatePalletViewState> = entityViewStateLiveData
+    private fun getViewStateData() = viewStateLiveData.value?.data
 
-    fun setGuid(guid: String) {
-
-
-
-        entityLiveData = docCreatePalletRepository.getDocCreatePalletByGuidLiveData(guid)
-        entityLiveData?.observeForever(entityObserver)
-
-        //listLiveData = docCreatePalletRepository.getListProductCreatePalletLiveData(guid)
-        listLiveData = docCreatePalletRepository.getSimpleListProductCreatePalletLiveData(guid)
-        listLiveData?.observeForever(listObserver)
-
-
-        guidPublishSubject.onNext(guid)
-
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        entityLiveData?.removeObserver(entityObserver)
-        listLiveData?.removeObserver(listObserver)
+    fun setGuid(guidParam: String) {
+        loadHandler.loadData(guidParam)
+        this.guid = guidParam
     }
 }

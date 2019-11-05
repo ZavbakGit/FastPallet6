@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/docCreatePalletFragment"
         android:name="fun.gladkikh.app.fastpallet6.ui.fragment.createpallet.doc.DocCreatePalletFragment"
-        android:label="DocCreatePalletFragment" >
+        android:label="DocCreatePalletFragment">
         <action
             android:id="@+id/action_docCreatePalletFragment_to_productCreatePalletFragment"
             app:destination="@id/productCreatePalletFragment" />
