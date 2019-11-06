@@ -37,8 +37,10 @@ class BoxCreatePalletFragment : BaseFragment() {
 
         viewModel.setGuid(guid)
 
-        btAdd.setOnClickListener {
-            viewModel.scanBarcode("${(10..99).random()}123456789")
+        btTest.setOnClickListener {
+            val barcode = "${(10..99).random()}123456789"
+            viewModel.scanBarcode(barcode)
+            mainActivity.showMessage(barcode)
         }
 
         mainActivity.barcodeLiveData.observe(viewLifecycleOwner, Observer {
@@ -103,6 +105,9 @@ class BoxCreatePalletFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     fun refreshScreen(viewState: BoxScreenCreatePalletViewState) {
 
+        tvTitle.text = "Коробка"
+
+        btTest.text = "Ненерирует штрих код"
 
         tvDoc.text = "Документ: " + viewState.data?.docDescription
 

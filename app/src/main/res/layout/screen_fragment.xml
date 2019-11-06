@@ -3,6 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_margin="8dp"
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textStyle="bold"/>
+
+
+    <Button
+        android:id="@+id/btTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add" />
+
 
     <TextView
         android:layout_margin="8dp"
@@ -45,19 +60,10 @@
         android:layout_height="wrap_content"
         android:text="TextView" />
 
-
-
-    <Button
-        android:id="@+id/btAdd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add" />
-
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="150dp"/>
-
+        android:layout_height="match_parent"/>
 
 
 

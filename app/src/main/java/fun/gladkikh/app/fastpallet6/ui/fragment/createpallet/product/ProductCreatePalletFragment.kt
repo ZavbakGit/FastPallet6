@@ -46,8 +46,10 @@ class ProductCreatePalletFragment : BaseFragment() {
             adapter.list[i].palGuid?.let { openPallet(it) }
         }
 
-        btAdd.setOnClickListener {
-            viewModel.scanBarcode("<pal>0214000000${(10..99).random()}</pal>")
+        btTest.setOnClickListener {
+            val barcode = "<pal>0214000000${(10..99).random()}</pal>"
+            viewModel.scanBarcode(barcode)
+            mainActivity.showMessage(barcode)
         }
 
         viewModel.getCommand().observe(viewLifecycleOwner, Observer {

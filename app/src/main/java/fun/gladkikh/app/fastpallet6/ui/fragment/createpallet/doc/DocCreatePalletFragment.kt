@@ -63,6 +63,8 @@ class DocCreatePalletFragment : BaseFragment() {
         tvInfo.text = "Прогресс: ${viewState.progress} \n"
 
         adapter.list = viewState.list
+
+        btTest.text = "Ничего"
     }
 
     private class Adapter(mContext: Context) :

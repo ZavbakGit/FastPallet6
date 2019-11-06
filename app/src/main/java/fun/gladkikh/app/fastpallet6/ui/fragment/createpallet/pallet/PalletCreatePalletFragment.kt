@@ -45,8 +45,10 @@ class PalletCreatePalletFragment : BaseFragment() {
             adapter.list[i].boxGuid?.let { openBox(it) }
         }
 
-        btAdd.setOnClickListener {
-            viewModel.scanBarcode("${(10..99).random()}123456789")
+        btTest.setOnClickListener {
+            val barcode = "${(10..99).random()}123456789"
+            viewModel.scanBarcode(barcode)
+            mainActivity.showMessage(barcode)
         }
 
         viewModel.getCommand().observe(viewLifecycleOwner, Observer {
@@ -115,6 +117,8 @@ class PalletCreatePalletFragment : BaseFragment() {
                 "Добавить(3) Удалить (9)"
 
         adapter.list = viewState.list
+
+        btTest.text = "Генерирует штрихкод"
     }
 
     private class Adapter(mContext: Context) : MyBaseAdapter<ItemBox>(mContext) {
