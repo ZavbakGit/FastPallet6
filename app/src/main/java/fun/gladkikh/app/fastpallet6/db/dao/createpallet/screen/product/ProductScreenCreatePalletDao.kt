@@ -431,11 +431,6 @@ interface ProductScreenCreatePalletDao {
             " ")
     fun getListItemTotal(guidProduct:String):List<ItemProductScreenDataDb>
 
-
-
-    @Query("SELECT * FROM PalletCreatePalletDb WHERE  guid =:guidPallet ")
-    fun getPallet(guidPallet:String): PalletCreatePalletDb
-
     @Query("SELECT * FROM PalletCreatePalletDb WHERE number =:number ")
     fun getPalletByNumber(number:String): PalletCreatePalletDb?
 }

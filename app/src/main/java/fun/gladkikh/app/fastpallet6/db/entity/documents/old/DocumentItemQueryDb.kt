@@ -1,4 +1,4 @@
-package `fun`.gladkikh.app.fastpallet6.db.entity
+package `fun`.gladkikh.app.fastpallet6.db.entity.documents.old
 
 
 

@@ -38,7 +38,6 @@ class CreatePalletRepositoryUpdate(val createPalletUpdateDao: CreatePalletUpdate
         }
     }
 
-
     fun <T> save(intety: T) {
         when (intety) {
             is Box -> createPalletUpdateDao.insertOrUpdate(intety.toDb())

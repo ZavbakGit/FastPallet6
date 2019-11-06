@@ -1,11 +1,11 @@
-package `fun`.gladkikh.app.fastpallet6.repository
+package `fun`.gladkikh.app.fastpallet6.repository.documents.old
 
-import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.documents.old.DocumentsQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.CreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.CreatePallet
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Document
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Product
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.DocumentsItem
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.old.DocumentsItem
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toObject
 import `fun`.gladkikh.app.fastpallet6.mapping.documents.toObject
 import `fun`.gladkikh.app.fastpallet6.repository.createpallet.CreatePalletRepositoryUpdate

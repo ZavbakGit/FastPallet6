@@ -466,6 +466,5 @@ interface PalletScreenCreatePalletDao {
             "FROM  BoxCreatePalletDb Box WHERE Box.guidPallet =:guidBox ")
     fun getListItem(guidBox:String):List<ItemPalletScreenDataDb>
 
-    @Query("SELECT * FROM BoxCreatePalletDb WHERE guid =:guidBox ")
-    fun getBox(guidBox:String): BoxCreatePalletDb
+
 }

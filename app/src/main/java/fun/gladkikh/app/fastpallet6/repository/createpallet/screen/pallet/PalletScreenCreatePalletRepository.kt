@@ -27,7 +27,10 @@ class PalletScreenCreatePalletRepository(
         }
     }
 
-    fun getBox(guid:String) = palletScreenCreatePalletDao.getBox(guid).toObject()
+    fun getBox(guid: String) =
+        (repositoryUpdate.getObjectCreatePalletByGuid<Box>(guid)
+                as Box)
+
     fun deleteBox(box:Box) = repositoryUpdate.delete(box)
 
     fun saveBox(box: Box){

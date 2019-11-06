@@ -1,8 +1,8 @@
 package `fun`.gladkikh.app.fastpallet6.mapping.documents
 
-import `fun`.gladkikh.app.fastpallet6.db.entity.DocumentItemQueryDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.documents.old.DocumentItemQueryDb
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Document
-import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.DocumentsItem
+import `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.old.DocumentsItem
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Type
 import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toCreatePallet
 import `fun`.gladkikh.app.fastpallet6.network.intity.DocResponse

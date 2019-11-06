@@ -107,7 +107,7 @@ class BoxCreatePalletFragment : BaseFragment() {
 
         tvTitle.text = "Коробка"
 
-        btTest.text = "Ненерирует штрих код"
+        btTest.text = "Генерирует штрих код"
 
         tvDoc.text = "Документ: " + viewState.data?.docDescription
 

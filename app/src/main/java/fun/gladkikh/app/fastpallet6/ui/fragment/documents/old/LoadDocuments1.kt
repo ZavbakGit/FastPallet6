@@ -1,10 +1,10 @@
-package `fun`.gladkikh.app.fastpallet6.ui.fragment.documents
+package `fun`.gladkikh.app.fastpallet6.ui.fragment.documents.old
 
 import `fun`.gladkikh.app.fastpallet6.domain.usecase.documents.getListDocumentsDbFromServer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-fun DocumentsViewModel.loadDocuments() {
+fun DocumentsViewModel1.loadDocuments() {
     disposables.add(
         getListDocumentsDbFromServer(
             documentRepository = documentsRepository,

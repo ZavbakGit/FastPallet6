@@ -1,4 +1,4 @@
-package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents
+package `fun`.gladkikh.app.fastpallet6.domain.entity.screens.documents.old
 
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Type
 import java.util.*

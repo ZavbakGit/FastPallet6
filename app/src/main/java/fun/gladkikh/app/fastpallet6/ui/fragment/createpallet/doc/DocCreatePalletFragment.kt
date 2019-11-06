@@ -56,6 +56,10 @@ class DocCreatePalletFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     fun refreshScreen(viewState: DocScreenCreatePalletViewState) {
 
+        tvTitle.text = "Документ"
+
+        btTest.text = "Ничего"
+
         tvDoc.text = "Документ: " + viewState.data?.description
 
         tvProduct.text = "Статус: ${Status.getStatusById(viewState.data?.status!!)}"

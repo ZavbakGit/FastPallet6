@@ -92,6 +92,10 @@ class ProductCreatePalletFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     fun refreshScreen(viewState: ProductScreenCreatePalletViewState) {
 
+        tvTitle.text = "Товар"
+
+        btTest.text = "Генерирует штрих код паллеты"
+
 
         tvDoc.text = "Документ: " + viewState.data?.docDescription
 

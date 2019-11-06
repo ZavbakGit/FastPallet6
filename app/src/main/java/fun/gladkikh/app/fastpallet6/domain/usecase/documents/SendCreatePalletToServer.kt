@@ -6,7 +6,7 @@ import `fun`.gladkikh.app.fastpallet6.mapping.createpallet.toCreatPalletOld
 import `fun`.gladkikh.app.fastpallet6.network.ApiFactory
 import `fun`.gladkikh.app.fastpallet6.network.intity.SendDocumentsReqest
 import `fun`.gladkikh.app.fastpallet6.network.intity.SendDocumentsResponse
-import `fun`.gladkikh.app.fastpallet6.repository.DocumentsRepository
+import `fun`.gladkikh.app.fastpallet6.repository.documents.old.DocumentsRepository
 import `fun`.gladkikh.app.fastpallet6.repository.SettingsRepository
 import io.reactivex.Completable
 

@@ -1,12 +1,12 @@
 package `fun`.gladkikh.app.fastpallet6.db
 
-import `fun`.gladkikh.app.fastpallet6.db.dao.DocumentsQueryDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.documents.old.DocumentsQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.CreatePalletUpdateDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.box.BoxScreenCreatePalletDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.doc.DocScreenCreatePalletDao
-import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.doc.old.DocCreatePalletQueryDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.pallet.PalletScreenCreatePalletDao
 import `fun`.gladkikh.app.fastpallet6.db.dao.createpallet.screen.product.ProductScreenCreatePalletDao
+import `fun`.gladkikh.app.fastpallet6.db.dao.documents.DocumentsScreenDao
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.BoxCreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.CreatePalletDb
 import `fun`.gladkikh.app.fastpallet6.db.entity.creatpallet.PalletCreatePalletDb
@@ -23,6 +23,8 @@ import androidx.room.RoomDatabase
 )
 abstract class AppDatabase : RoomDatabase() {
 
+    abstract fun getDocumentsDao(): DocumentsScreenDao
+
     abstract fun getBoxScreenCreatePalletDao(): BoxScreenCreatePalletDao
     abstract fun getPalletScreenCreatePalletDao(): PalletScreenCreatePalletDao
     abstract fun getProductScreenCreatePalletDao(): ProductScreenCreatePalletDao
@@ -30,5 +32,4 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getCreatePalletUpdateDao(): CreatePalletUpdateDao
     abstract fun getDocumentsQueryDao(): DocumentsQueryDao
-    abstract fun getDocCreatePalletQueryDao(): DocCreatePalletQueryDao
 }

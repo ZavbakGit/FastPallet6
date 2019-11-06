@@ -33,14 +33,13 @@ class ProductScreenCreatePalletRepository(
         }
     }
 
-    fun getPallet(guid: String) = productScreenCreatePalletDao.getPallet(guid).toObject()
+    //fun getPallet1(guid: String) = productScreenCreatePalletDao.getPallet(guid).toObject()
+    fun getPallet(guid: String) = repositoryUpdate.getObjectCreatePalletByGuid<Pallet>(guid) as Pallet
 
     fun getPalletByNumber(number: String):Pallet?{
         val pallet = productScreenCreatePalletDao.getPalletByNumber(number)
         return pallet?.toObject()
     }
-
-
 
     fun deletePallet(pallet: Pallet) = repositoryUpdate.delete(pallet)
 

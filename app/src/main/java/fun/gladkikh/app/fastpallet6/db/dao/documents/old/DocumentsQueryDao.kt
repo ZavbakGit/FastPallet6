@@ -1,7 +1,7 @@
-package `fun`.gladkikh.app.fastpallet6.db.dao
+package `fun`.gladkikh.app.fastpallet6.db.dao.documents.old
 
 
-import `fun`.gladkikh.app.fastpallet6.db.entity.DocumentItemQueryDb
+import `fun`.gladkikh.app.fastpallet6.db.entity.documents.old.DocumentItemQueryDb
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query

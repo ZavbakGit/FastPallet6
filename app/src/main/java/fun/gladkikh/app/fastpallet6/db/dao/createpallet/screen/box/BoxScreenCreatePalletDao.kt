@@ -172,7 +172,6 @@ interface BoxScreenCreatePalletDao {
             "          Doc.guid;")
     fun getTotalData(guidBox:String):BoxScreenDataDb
 
-    @Query("SELECT * FROM BoxCreatePalletDb WHERE guid =:guidBox ")
-    fun getBox(guidBox:String):BoxCreatePalletDb
+
 
 }

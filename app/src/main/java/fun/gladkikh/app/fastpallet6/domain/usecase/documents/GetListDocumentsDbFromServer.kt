@@ -1,12 +1,11 @@
 package `fun`.gladkikh.app.fastpallet6.domain.usecase.documents
 
 import `fun`.gladkikh.app.fastpallet6.domain.entity.Document
-import `fun`.gladkikh.app.fastpallet6.domain.entity.SettingsPref
 import `fun`.gladkikh.app.fastpallet6.mapping.documents.toDocument
 import `fun`.gladkikh.app.fastpallet6.network.ApiFactory
 import `fun`.gladkikh.app.fastpallet6.network.intity.GetListDocsRequest
 import `fun`.gladkikh.app.fastpallet6.network.intity.ListDocResponse
-import `fun`.gladkikh.app.fastpallet6.repository.DocumentsRepository
+import `fun`.gladkikh.app.fastpallet6.repository.documents.old.DocumentsRepository
 import `fun`.gladkikh.app.fastpallet6.repository.SettingsRepository
 import io.reactivex.Single
 
